@@ -17,4 +17,7 @@ export class ApiService {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'categoria/' + id);
   }
+  createCategoria(descripcion: string){
+    return this.http.post<any>(this.urlBase + 'categoria/' , {'descripcion':descripcion});
+  }
 }

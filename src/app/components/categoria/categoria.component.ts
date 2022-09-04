@@ -3,6 +3,8 @@ import { ApiService } from '../../services/api.service';
 import { Categoria } from '../../models/categoria.models';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalpopupComponent } from '../modalpopup/modalpopup.component';
 
 export interface PeriodicElement {
   name: string;
@@ -36,7 +38,7 @@ export class CategoriaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource(this.categoria);
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private matdialog: MatDialog) {}
 
   ngOnInit(): void {
     this.apiService.getAllCategoria().subscribe({
@@ -65,5 +67,8 @@ export class CategoriaComponent implements OnInit {
         console.log('Se elimino una categoria', data);
       },
     })
+  }
+  openPopup(){
+    this.matdialog.open(ModalpopupComponent)
   }
 }

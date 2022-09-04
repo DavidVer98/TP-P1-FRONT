@@ -1,0 +1,8 @@
+<form class="example-form">
+  <h1>Crear Categoria</h1>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Descripcion</mat-label>
+    <input [(ngModel)]="descripcionCategoria" name="descripcion" matInput maxlength="256" placeholder="Farmacos">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="crearCategoria()">Guardar</button>
+</form>
