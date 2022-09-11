@@ -4,6 +4,7 @@ export class FichaClinicaModel {
   motivoConsulta!: string;
   diagnostico!:string;
   observacion!: number;
+  idTipoProducto!:object;
   idEmpleado!:object;
   idCliente!:object;
 }

@@ -20,6 +20,7 @@ export class FichaClinicaComponent implements OnInit {
     'motivoConsulta',
     'diagnostico',
     'observacion',
+    'idTipoProducto',
     'idEmpleado',
     'idCliente',
     'acciones'
