@@ -51,16 +51,10 @@
           style="text-align: right"
         >
           <a
-            style="color: #1878b0"
-            matTooltip="Buscar"
-            aria-label="Button that displays a tooltip when focused or hovered over"
-          >
-            <mat-icon> search </mat-icon></a
-          >
-          <a
             style="color: #1f516f"
             matTooltip="Editar"
             aria-label="Button that displays a tooltip when focused or hovered over"
+            (click)="editarCategoria(element.idCategoria)"
           >
             <mat-icon> edit </mat-icon></a
           >
@@ -84,10 +78,16 @@
     ></mat-paginator>
   </div>
 </div>
-<div class="example-button-container" style="    position: fixed;
-right: 5em;
-bottom: 4em;">
-  <button mat-fab color="warn" aria-label="Example icon button with a home icon" (click)="openPopup()">
+<div
+  class="example-button-container"
+  style="position: fixed; right: 5em; bottom: 4em"
+>
+  <button
+    mat-fab
+    color="warn"
+    aria-label="Example icon button with a home icon"
+    (click)="crearCategoria()"
+  >
     <mat-icon>add</mat-icon>
   </button>
 </div>

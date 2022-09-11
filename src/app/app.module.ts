@@ -10,11 +10,11 @@ import { CategoriaComponent } from './components/categoria/categoria.component';
 
 //http
 import { HttpClientModule } from '@angular/common/http';
-import { ModalpopupComponent } from './components/modalpopup/modalpopup.component';
+import { CategoriaModalComponent } from './components/categoriaModal/categoriaModal.component';
 import { FormsModule  } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, CategoriaComponent, ModalpopupComponent],
+  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -20,4 +20,8 @@ export class ApiService {
   createCategoria(descripcion: string){
     return this.http.post<any>(this.urlBase + 'categoria/' , {'descripcion':descripcion});
   }
+  editarCategoria(idCategoria:number, descripcion: object){
+    console.log("Editar", {idCategoria,descripcion })
+    return this.http.put<any>(this.urlBase + 'categoria' , {'idCategoria':idCategoria, 'descripcion':descripcion});
+  }
 }

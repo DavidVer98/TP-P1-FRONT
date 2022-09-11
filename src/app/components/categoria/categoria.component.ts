@@ -4,7 +4,7 @@ import { Categoria } from '../../models/categoria.models';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalpopupComponent } from '../modalpopup/modalpopup.component';
+import { CategoriaModalComponent } from '../categoriaModal/categoriaModal.component';
 
 export interface PeriodicElement {
   name: string;
@@ -61,14 +61,33 @@ export class CategoriaComponent implements OnInit {
     // this.dataSource.sort = this.sort;
   }
 
-  eliminarCategoria(id: number) {
-    this.apiService.deleteOnceCategoria(id).subscribe({
-      next: (data: any) => {
-        console.log('Se elimino una categoria', data);
-      },
-    })
+  eliminarCategoria(idCategoria: number) {
+
+    this.matdialog.open(CategoriaModalComponent, {
+      data:{
+        tipo: "delete",
+        id: idCategoria,
+      }
+      } )
   }
-  openPopup(){
-    this.matdialog.open(ModalpopupComponent)
+  // abre el poppup
+  crearCategoria(){
+    this.matdialog.open(CategoriaModalComponent, {
+      data:{
+        tipo: "create"
+      }
+      })
+  }
+  editarCategoria(idCategoria : number){
+
+
+    console.log(idCategoria)
+    this.matdialog.open(CategoriaModalComponent, {
+      data:{
+        tipo: "edit",
+        id: idCategoria,
+        descripcionCategoria: this.dataSource.filteredData.find(data => data.idCategoria == idCategoria)?.descripcion
+      }
+      } )
   }
 }
