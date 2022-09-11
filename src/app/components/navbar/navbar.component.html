@@ -4,15 +4,53 @@
       mat-icon-button
       class="example-icon"
       aria-label="Example icon-button with menu icon"
+      (click)="opened = !opened"
     >
       <mat-icon>menu</mat-icon>
     </button>
-    <span>My App</span>
+    <span style="padding: 1em">Nutri Natalia</span>
     <span class="example-spacer"></span>
-    <button mat-button routerLink="/categoria">Categoria</button>
+    <!-- <button mat-button routerLink="/categoria">Categorias</button>
     <button mat-button>Test 1</button>
     <button mat-button>Test 1</button>
-    <span class="example-spacer"></span>
+    <span class="example-spacer"></span> -->
     <mat-icon>logout</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mat-button [(opened)]="opened" mode="side">
+    <mat-nav-list style="margin-top: 5px">
+      <mat-list-item mat-button routerLink="/categoria">
+        <mat-icon style="color: #898989">medical_services</mat-icon>
+        <span mat-button class="button-text">Servicios</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list style="margin-top: 5px">
+      <mat-list-item mat-button routerLink="/categoria">
+        <mat-icon style="color: #898989">chrome_reader_mode</mat-icon>
+        <span mat-button class="button-text">Categoria</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list style="margin-top: 5px">
+      <mat-list-item mat-button routerLink="/categoria">
+        <mat-icon style="color: #898989">edit_calendar</mat-icon>
+        <span mat-button class="button-text">Reserva</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list style="margin-top: 5px">
+      <mat-list-item mat-button routerLink="/categoria">
+        <mat-icon style="color: #898989">perm_contact_calendar</mat-icon>
+        <span mat-button class="button-text">Ficha Clinica</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="padding: 2em">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

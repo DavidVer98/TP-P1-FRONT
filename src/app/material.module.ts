@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -24,6 +26,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatSidenavModule,
+    MatListModule
   ],
 })
 export class MaterialModule {}
