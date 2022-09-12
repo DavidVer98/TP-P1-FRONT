@@ -5,15 +5,10 @@ import { FichaClinicaModel } from '../models/ficha-clinica.models';
 import { Listadatos } from '../models/datosCategoria.models';
 import { ListadatosG } from '../models/datosGenericos.models';
 import { Observable } from 'rxjs';
-<<<<<<< HEAD
 import { PersonaModel } from '../models/persona.models';
-
-=======
 import { ListadatosSub } from '../models/datosSubCategoria.models';
 import { SubCategoria } from '../models/subCategoria.models';
-import { PersonaModel } from '../models/persona.models.js';
->>>>>>> 61338f77e5150e2c18f5bc01ae8f3dfd700f496b
-
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +19,8 @@ export class ApiService {
   getAllCategoria(): Observable<Listadatos<Categoria>> {
     return this.http.get<Listadatos<Categoria>>(this.urlBase + 'categoria');
   }
-  getAllPaciente(): Observable<ListadatosG<PersonaModel >> {
-    return this.http.get<Listadatos<PersonaModel >>(this.urlBase + 'persona');
+  getAllPaciente(): Observable<ListadatosG<PersonaModel>> {
+    return this.http.get<Listadatos<PersonaModel>>(this.urlBase + 'persona');
   }
   deleteOnceCategoria(id: number): any {
     console.log('id desde el servicio' + id);
@@ -49,21 +44,21 @@ export class ApiService {
   }
 
 
-//------------------------------------------------------ Subcategoria----------------------------------------------------------------------------------
-  getAllSubCategoria():Observable<ListadatosSub<SubCategoria>>{
+  //------------------------------------------------------ Subcategoria----------------------------------------------------------------------------------
+  getAllSubCategoria(): Observable<ListadatosSub<SubCategoria>> {
     return this.http.get<ListadatosSub<SubCategoria>>(this.urlBase + 'tipoProducto');
   }
-  deleteOnceSubCategoria(id:number): any {
+  deleteOnceSubCategoria(id: number): any {
     console.log('se elimina la subcategoria con id' + id);
     return this.http.delete(this.urlBase + 'tipoProducto/' + id);
   }
-  createSubCategoria(descripcion: string, idCategoria:Categoria){
-    return this.http.post<any>(this.urlBase + 'tipoProducto/' , {'descripcion':descripcion, 'idCategoria':idCategoria});
+  createSubCategoria(descripcion: string, idCategoria: Categoria) {
+    return this.http.post<any>(this.urlBase + 'tipoProducto/', { 'descripcion': descripcion, 'idCategoria': idCategoria });
   }
-  editarSubCategoria(idSubCategoria:number, descripcion: object,idCategoria:Categoria){
-    console.log("Editar sub categoria", {idSubCategoria,descripcion })
-    console.log(idCategoria,' ',descripcion,' ',idSubCategoria,' hola que tal test esto pio anda 123')
-    return this.http.put<any>(this.urlBase + 'tipoProducto' , {'idTipoProducto':idSubCategoria,'descripcion':descripcion,'flagVisible':'S', 'idCategoria':idCategoria ,'posicion':1});
+  editarSubCategoria(idSubCategoria: number, descripcion: object, idCategoria: Categoria) {
+    console.log("Editar sub categoria", { idSubCategoria, descripcion })
+    console.log(idCategoria, ' ', descripcion, ' ', idSubCategoria, ' hola que tal test esto pio anda 123')
+    return this.http.put<any>(this.urlBase + 'tipoProducto', { 'idTipoProducto': idSubCategoria, 'descripcion': descripcion, 'flagVisible': 'S', 'idCategoria': idCategoria, 'posicion': 1 });
   }
 
 
@@ -79,14 +74,21 @@ export class ApiService {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'fichaClinica/' + id);
   }
-  createfichaClinica(motivoConsulta: string, diagnostico:string, observacion:string, idEmpleado:object, idCliente:object){
-    return this.http.post<any>(this.urlBase + 'fichaClinica/' , {'motivoConsulta':motivoConsulta, 'diagnostico':diagnostico, 'observacion': observacion, 'idEmpleado':idEmpleado, 'idCliente':idCliente});
+  createfichaClinica(motivoConsulta: string, diagnostico: string, observacion: string, idTipoProducto: number, idEmpleado: number, idCliente: number) {
+  
+  let options = {
+  headers: new HttpHeaders({"Access-Control-Allow-Headers":'Content-Type', 'Content-Type': 'application/json','usuario': 'usuario1'})
   }
-  editarfichaClinica(idFichaClinica:number, motivoConsulta: string, diagnostico:string, observacion:string){
-    console.log("Editar", {idFichaClinica, motivoConsulta, diagnostico, observacion})
-    return this.http.put<any>(this.urlBase + 'fichaClinica' , {'idFichaClinica':idFichaClinica, 'motivoConsulta':motivoConsulta, 'diagnostico':diagnostico, 'observacion':observacion});
+    let pistola={ 'motivoConsulta': motivoConsulta, 'diagnostico': diagnostico, 'observacion': observacion, 'idTipoProducto':{'idTipoProducto':idTipoProducto}, 'idEmpleado': {'idPersona':idEmpleado}, 'idCliente': {'idPersona':idCliente} }
+   
+    console.log("pistola",pistola)
+    return this.http.post<any>(this.urlBase + 'fichaClinica/', pistola, options);
   }
-  getAllFisioterapeutas():Observable<Listadatos<any>> {
+  editarfichaClinica(idFichaClinica: number, motivoConsulta: string, diagnostico: string, observacion: string) {
+    console.log("Editar", { idFichaClinica, motivoConsulta, diagnostico, observacion })
+    return this.http.put<any>(this.urlBase + 'fichaClinica', { 'idFichaClinica': idFichaClinica, 'motivoConsulta': motivoConsulta, 'diagnostico': diagnostico, 'observacion': observacion });
+  }
+  getAllFisioterapeutas(): Observable<Listadatos<any>> {
     return this.http.get<Listadatos<any>>(this.urlBase + 'persona?ejemplo=%7B%22soloUsuariosDelSistema%22%3Atrue%7D');
   }
 

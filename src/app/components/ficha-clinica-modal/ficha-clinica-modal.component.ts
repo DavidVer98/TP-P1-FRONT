@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { PersonaModel } from 'src/app/models/persona.models';
+import { SubCategoria } from 'src/app/models/subCategoria.models';
 import { ApiService } from 'src/app/services/api.service';
 @Component({
   selector: 'app-ficha-clinica-modal',
@@ -18,10 +19,18 @@ export class FichaClinicaModalComponent implements OnInit {
   idCliente = {};
   fichaclinica = {motivoConsulta:'',diagnostico:'',observacion:'',idEmpleado:{},idCliente:{}};
   errorMessage = '';
+
+  idTipoProducto_send=0;
+  idEmpleado_send = 0;
+  idCliente_send = 0;
+
   personaFisioterapeuta:PersonaModel[]=[]
   personaCliente:PersonaModel[]=[]
+  subCategoria:SubCategoria[]=[]
+
   dataSource1 = new MatTableDataSource(this.personaFisioterapeuta);
   dataSource2 = new MatTableDataSource(this.personaCliente);
+  dataSource3 = new MatTableDataSource(this.subCategoria);
   constructor(
     private apiService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: { tipo: string, id: number, motivoConsulta: string, diagnostico: string, observacion: string, idTipoProducto:object, idEmpleado: object, idCliente: object   }
@@ -41,7 +50,7 @@ export class FichaClinicaModalComponent implements OnInit {
         this.personaFisioterapeuta= data1.lista;
         this.dataSource1.data = data1.lista;
       },
-      
+
     });
     this.apiService.getAllPaciente().subscribe({
       next: (data2) => {
@@ -49,20 +58,36 @@ export class FichaClinicaModalComponent implements OnInit {
         this.personaCliente = data2.lista;
         this.dataSource2.data = data2.lista;
       },
-      
+    });
+    this.apiService.getAllSubCategoria().subscribe({
+      next: (data3) => {
+        console.log('response received', data3);
+        this.subCategoria = data3.lista;
+        this.dataSource3.data = data3.lista;
+      },
     });
 
 
   }
 
-  onChange($event:any) {
+  onChange1($event:any) {
     console.log($event);
+    this.idTipoProducto_send=$event
+
+  }
+  onChange2($event:any) {
+    console.log($event);
+    this.idEmpleado_send=$event
+
+  }
+  onChange3($event:any) {
+    console.log($event);
+    this.idCliente_send=$event
+
   }
 
   createFichaClinica() {
-
-
-    this.apiService.createfichaClinica(this.motivoConsulta, this.diagnostico, this.observacion, this.idTipoProducto, this.idEmpleado, this.idCliente).subscribe({
+    this.apiService.createfichaClinica(this.fichaclinica.motivoConsulta, this.fichaclinica.diagnostico, this.fichaclinica.observacion, this.idTipoProducto_send, this.idEmpleado_send, this.idCliente_send).subscribe({
       next: (data) => {
         console.log(data);
       },
