@@ -12,9 +12,11 @@ import { CategoriaComponent } from './components/categoria/categoria.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaModalComponent } from './components/categoriaModal/categoriaModal.component';
 import { FormsModule  } from '@angular/forms';
+import { PacienteComponent } from './components/paciente/paciente.component';
+import { PacienteModalComponent } from './components/paciente-modal/paciente-modal.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent],
+  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, PacienteComponent, PacienteModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
