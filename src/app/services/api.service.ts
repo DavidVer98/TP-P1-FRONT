@@ -4,6 +4,7 @@ import { Categoria } from '../models/categoria.models';
 import { FichaClinicaModel } from '../models/ficha-clinica.models';
 import { Listadatos } from '../models/datosCategoria.models';
 import { Observable } from 'rxjs';
+import { PersonaModel } from '../models/persona.models';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,8 @@ export class ApiService {
     console.log("Editar", {idFichaClinica, motivoConsulta, diagnostico, observacion})
     return this.http.put<any>(this.urlBase + 'fichaClinica' , {'idFichaClinica':idFichaClinica, 'motivoConsulta':motivoConsulta, 'diagnostico':diagnostico, 'observacion':observacion});
   }
-
+  getAllFisioterapeutas():Observable<Listadatos<any>> {
+    return this.http.get<Listadatos<any>>(this.urlBase + 'persona?ejemplo=%7B%22soloUsuariosDelSistema%22%3Atrue%7D');
+  }
 
 }

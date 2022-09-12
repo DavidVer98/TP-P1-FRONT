@@ -50,13 +50,13 @@ ngAfterViewInit() {
   // this.dataSource.sort = this.sort;
 }
 
-// crearFichaClinica(){
-//   this.matdialog.open(FichaClinicaModalComponent, {
-//     data:{
-//       tipo: "create"
-//     }
-//     })
-// }
+createFichaClinica(){
+  this.matdialog.open(FichaClinicaModalComponent, {
+    data:{
+      tipo: "create"
+    }
+    })
+}
 
 editarFichaClinica(idFichaClinica : number){
   console.log(this.dataSource.filteredData.find(data => data.idFichaClinica == idFichaClinica)?.motivoConsulta)
