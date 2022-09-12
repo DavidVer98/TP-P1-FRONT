@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { ListadatosSub } from '../models/datosSubCategoria.models';
 import { SubCategoria } from '../models/subCategoria.models';
 import { PersonaModel } from '../models/persona.models.js';
+import { Persona } from '../models/user.models';
 
 
 @Injectable({
@@ -82,6 +83,9 @@ export class ApiService {
     return this.http.put<any>(this.urlBase + 'fichaClinica' , {'idFichaClinica':idFichaClinica, 'motivoConsulta':motivoConsulta, 'diagnostico':diagnostico, 'observacion':observacion});
   }
 
-
+  //--------------Login------------------------------------------------------------------------------------
+  getAllUser():Observable<Listadatos<Persona>>{
+    return this.http.get<any>(this.urlBase + 'persona');
+  }
 
 }

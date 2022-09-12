@@ -21,12 +21,15 @@ import { PacienteModalComponent } from './components/paciente-modal/paciente-mod
 
 import { FichaClinicaComponent } from './components/ficha-clinica/ficha-clinica.component';
 import { FichaClinicaModalComponent } from './components/ficha-clinica-modal/ficha-clinica-modal.component';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardModule } from './components/dashboard/dashboard.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
 
 
 
-  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent],
+  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent],
   
 
 
@@ -37,7 +40,8 @@ import { FichaClinicaModalComponent } from './components/ficha-clinica-modal/fic
     MaterialModule,
     HttpClientModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent],
