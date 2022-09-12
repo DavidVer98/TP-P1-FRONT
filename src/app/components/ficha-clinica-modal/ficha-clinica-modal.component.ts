@@ -18,9 +18,10 @@ export class FichaClinicaModalComponent implements OnInit {
   idCliente = {};
   fichaclinica = {motivoConsulta:'',diagnostico:'',observacion:'',idEmpleado:{},idCliente:{}};
   errorMessage = '';
-  persona:PersonaModel[]=[]
-
-  dataSource = new MatTableDataSource(this.persona);
+  personaFisioterapeuta:PersonaModel[]=[]
+  personaCliente:PersonaModel[]=[]
+  dataSource1 = new MatTableDataSource(this.personaFisioterapeuta);
+  dataSource2 = new MatTableDataSource(this.personaCliente);
   constructor(
     private apiService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: { tipo: string, id: number, motivoConsulta: string, diagnostico: string, observacion: string, idTipoProducto:object, idEmpleado: object, idCliente: object   }
@@ -35,13 +36,23 @@ export class FichaClinicaModalComponent implements OnInit {
       idCliente:this.data.idCliente
     }
     this.apiService.getAllFisioterapeutas().subscribe({
-      next: (data2) => {
-        console.log('response received', data2);
-        this.persona = data2.lista;
-        this.dataSource.data = data2.lista;
+      next: (data1) => {
+        console.log('response received', data1);
+        this.personaFisioterapeuta= data1.lista;
+        this.dataSource1.data = data1.lista;
       },
       
     });
+    this.apiService.getAllPaciente().subscribe({
+      next: (data2) => {
+        console.log('response received', data2);
+        this.personaCliente = data2.lista;
+        this.dataSource2.data = data2.lista;
+      },
+      
+    });
+
+
   }
 
   onChange($event:any) {
@@ -51,7 +62,7 @@ export class FichaClinicaModalComponent implements OnInit {
   createFichaClinica() {
 
 
-    this.apiService.createfichaClinica(this.motivoConsulta, this.diagnostico, this.observacion, this.idEmpleado, this.idCliente).subscribe({
+    this.apiService.createfichaClinica(this.motivoConsulta, this.diagnostico, this.observacion, this.idTipoProducto, this.idEmpleado, this.idCliente).subscribe({
       next: (data) => {
         console.log(data);
       },

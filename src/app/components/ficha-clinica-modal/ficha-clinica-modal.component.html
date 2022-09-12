@@ -28,7 +28,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Seleccione un Fisioterapeuta</mat-label>
             <mat-select disableRipple (selectionChange)="onChange($event.value)">
-              <mat-option *ngFor="let test of persona"  [value]="test.idPersona">{{test.nombre}}</mat-option>
+              <mat-option *ngFor="let test of personaFisioterapeuta"  [value]="test.idPersona">{{test.nombre}}</mat-option>
             </mat-select>
           </mat-form-field>
         </li>
@@ -36,7 +36,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Seleccione un Cliente</mat-label>
             <mat-select disableRipple (selectionChange)="onChange($event.value)">
-              <mat-option *ngFor="let test of persona"  [value]="test.idPersona">{{test.nombre}}</mat-option>
+              <mat-option *ngFor="let test of personaCliente"  [value]="test.idPersona">{{test.nombre}}</mat-option>
             </mat-select>
           </mat-form-field>
         </li>
