@@ -16,8 +16,20 @@ import { FormsModule  } from '@angular/forms';
 import { SubCategoriaComponent } from './components/sub-categoria/sub-categoria.component';
 import { SubCategoriaModalComponent } from './components/sub-categoria-modal/sub-categoria-modal.component';
 
+import { PacienteComponent } from './components/paciente/paciente.component';
+import { PacienteModalComponent } from './components/paciente-modal/paciente-modal.component';
+
+import { FichaClinicaComponent } from './components/ficha-clinica/ficha-clinica.component';
+import { FichaClinicaModalComponent } from './components/ficha-clinica-modal/ficha-clinica-modal.component';
+
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent],
+
+
+
+  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent],
+  
+
+
   imports: [
     BrowserModule,
     AppRoutingModule,

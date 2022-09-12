@@ -1,0 +1,57 @@
+<!-- 
+<div *ngIf="data.tipo == 'create'">
+    <form class="example-form">
+      <h1>Crear Ficha Clinica</h1>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Descripcion</mat-label>
+        <input [(ngModel)]="descripcionCategoria" name="descripcion" matInput maxlength="256" placeholder="Farmacos" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="crearCategoria()" mat-dialog-close>
+        Guardar
+      </button>
+    </form>
+  </div> -->
+<div *ngIf="data.tipo == 'edit'">
+  <form class="example-form">
+    <h1>Editar Ficha Clínica</h1>
+    <ul style="list-style: none;">
+      <li>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Motivo de la consulta</mat-label>
+          <input [(ngModel)]="fichaclinica.motivoConsulta" name="motivoConsulta" matInput maxlength="256"
+            placeholder="Farmacos" />
+        </mat-form-field>
+      </li>
+      <li>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Diagnostico</mat-label>
+          <input [(ngModel)]="fichaclinica.diagnostico" name="diagnostico" matInput maxlength="256" 
+            placeholder="Farmacos" />
+        </mat-form-field>
+      </li>
+      <li>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Observacion</mat-label>
+          <input [(ngModel)]="fichaclinica.observacion" name="observacion" matInput maxlength="256"
+            placeholder="Farmacos" />
+        </mat-form-field>
+      </li>
+      <li>
+        <button mat-raised-button color="primary" (click)="editarFichaClinica()" mat-dialog-close>
+          Guardar
+        </button>
+      </li>
+    </ul>
+  </form>
+</div>
+<div *ngIf="data.tipo == 'delete'">
+  <h1 mat-dialog-title>Eliminar Ficha Clinica</h1>
+  <div mat-dialog-content>
+    ¿Estas seguro?
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button color="primary" (click)="eliminarFichaClinica()" mat-dialog-close>Aceptar</button>
+    <button mat-button mat-dialog-close cdkFocusInitial mat-raised-button color="warn">Cancelar</button>
+  </div>
+
+</div>
