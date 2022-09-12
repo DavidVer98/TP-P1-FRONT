@@ -3,8 +3,8 @@ export class PersonaModel {
   nombre!: string;
   apellido!: string;
   email!: string;
-  telefono!: number;
-  ruc!: number;
+  telefono!: string;
+  ruc!: string;
   cedula!: string;
   tipoPersona!: string;
   fechaNacimiento!: string;

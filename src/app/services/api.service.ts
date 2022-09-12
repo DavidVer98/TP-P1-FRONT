@@ -5,7 +5,7 @@ import { FichaClinicaModel } from '../models/ficha-clinica.models';
 import { Listadatos } from '../models/datosCategoria.models';
 import { ListadatosG } from '../models/datosGenericos.models';
 import { Observable } from 'rxjs';
-import { PersonaModel } from '../models/persona.models.js';
+import { PersonaModel } from '../models/persona.models';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +23,10 @@ export class ApiService {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'categoria/' + id);
   }
+  deleteOncePersona(id: number): any {
+    console.log('id desde el servicio' + id);
+    return this.http.delete(this.urlBase + 'persona/' + id);
+  }
   createCategoria(descripcion: string) {
     return this.http.post<any>(this.urlBase + 'categoria/', { 'descripcion': descripcion });
   }
@@ -39,6 +43,46 @@ export class ApiService {
       "fechaNacimiento": fechaNacimiento
     });
   }
+  editarPaciente(id:number,nombre: string, apellido: string, email: string, telefono: string, ruc: string, cedula: string, tipoPersona: string, fechaNacimiento: string) {
+
+    let update={
+      "idPersona": id,
+      "nombre": nombre,
+      "apellido": apellido,
+      "email": email,
+      "telefono": telefono,
+      "ruc": ruc,
+      "cedula": cedula,
+      "tipoPersona": tipoPersona,
+      "fechaNacimiento": `${fechaNacimiento} 00:00:00`,
+      "usuarioLogin": null,
+      "idLocalDefecto": null,
+      "flagVendedor": null,
+      "flagTaxfree": null,
+      "flagExcepcionChequeoVenta": null,
+      "observacion": null,
+      "direccion": null,
+      "idCiudad": null,
+      "tipoCliente": "MINORISTA",
+      "fechaHoraAprobContrato": null,
+      "soloUsuariosDelSistema": null,
+      "soloPersonasTaxfree": null,
+      "nombreCompleto": `${nombre} ${apellido}`,
+      "limiteCredito": null,
+      "soloProximosCumpleanhos": null,
+      "todosLosCampos": null,
+      "incluirLimiteDeCredito": null,
+      "deuda": null,
+      "saldo": null,
+      "creditos": null
+    }
+    console.log('aca estoy');
+    console.log(update);
+    return this.http.put<any>(this.urlBase + 'persona',update );
+  }
+
+
+
   editarCategoria(idCategoria: number, descripcion: object) {
     console.log("Editar", { idCategoria, descripcion })
     return this.http.put<any>(this.urlBase + 'categoria', { 'idCategoria': idCategoria, 'descripcion': descripcion });
@@ -51,6 +95,7 @@ export class ApiService {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'fichaClinica/' + id);
   }
+
   createfichaClinica(motivoConsulta: string, diagnostico:string, observacion:string, idEmpleado:object, idCliente:object){
     return this.http.post<any>(this.urlBase + 'fichaClinica/' , {'motivoConsulta':motivoConsulta, 'diagnostico':diagnostico, 'observacion': observacion, 'idEmpleado':idEmpleado, 'idCliente':idCliente});
   }

@@ -82,6 +82,28 @@ export class PacienteComponent implements OnInit {
       }
     })
   }
+  editarPersona(idPersona: number) {
+
+    let dat = this.dataSource.filteredData.find(data => data.idPersona == idPersona)
+    console.log(dat)
+    this.matdialog.open(PacienteModalComponent, {
+      data: {
+        tipo: "edit",
+        id: idPersona,
+        paciente_data: {
+          nombre: dat?.nombre,
+          apellido: dat?.apellido,
+          email: dat?.email,
+          telefono: dat?.telefono,
+          ruc: dat?.ruc,
+          cedula: dat?.cedula,
+          tipoPersona: dat?.tipoPersona,
+          fechaNacimiento: dat?.fechaNacimiento
+        }
+
+      }
+    })
+  }
 
 
 }
