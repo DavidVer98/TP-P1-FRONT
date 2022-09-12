@@ -5,13 +5,17 @@ import { SubCategoriaComponent } from './components/sub-categoria/sub-categoria.
 
 import { PacienteComponent } from './components/paciente/paciente.component';
 import { FichaClinicaComponent } from './components/ficha-clinica/ficha-clinica.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-  { path: 'categoria', component: CategoriaComponent },
+  { path: '', redirectTo:'login', pathMatch:'full'},
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', loadChildren:() => import('./components/dashboard/dashboard.module').then(x=>x.DashboardModule)},
+  // { path: 'categoria', component: CategoriaComponent },
 
-  { path: 'subCategoria', component: SubCategoriaComponent },
-  { path: 'paciente', component: PacienteComponent },
-  { path: 'fichaclinica', component: FichaClinicaComponent }
+  // { path: 'subCategoria', component: SubCategoriaComponent },
+  // { path: 'paciente', component: PacienteComponent },
+  // { path: 'fichaclinica', component: FichaClinicaComponent }
 
 ];
 

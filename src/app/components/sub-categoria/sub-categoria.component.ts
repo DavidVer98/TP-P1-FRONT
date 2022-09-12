@@ -81,7 +81,10 @@ export class SubCategoriaComponent implements OnInit {
   crearSubCategoria(){
     this.matdialog.open(SubCategoriaModalComponent, {
       data:{
-        tipo: "create"
+        tipo: "create",
+        id: 69,
+        descripcionSubCategoria:{},
+        idCategoria:new Categoria()
       }
       })
   }

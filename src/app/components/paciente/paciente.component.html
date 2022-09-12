@@ -71,6 +71,7 @@
             style="color: #1f516f"
             matTooltip="Editar"
             aria-label="Button that displays a tooltip when focused or hovered over"
+            (click)="editarPersona(element.idPersona)"
           >
             <mat-icon> edit </mat-icon></a
           >
@@ -78,7 +79,7 @@
             style="color: #e43c3c"
             matTooltip="Eliminar"
             aria-label="Button that displays a tooltip when focused or hovered over"
-            (click)="eliminarPersona(element.idCategoria)"
+            (click)="eliminarPersona(element.idPersona)"
           >
             <mat-icon> delete </mat-icon></a
           >

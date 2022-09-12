@@ -8,7 +8,10 @@ import { Observable } from 'rxjs';
 import { PersonaModel } from '../models/persona.models';
 import { ListadatosSub } from '../models/datosSubCategoria.models';
 import { SubCategoria } from '../models/subCategoria.models';
+
 import { HttpHeaders } from '@angular/common/http';
+import { Persona } from '../models/user.models';
+
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +29,10 @@ export class ApiService {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'categoria/' + id);
   }
+  deleteOncePersona(id: number): any {
+    console.log('id desde el servicio' + id);
+    return this.http.delete(this.urlBase + 'persona/' + id);
+  }
   createCategoria(descripcion: string) {
     return this.http.post<any>(this.urlBase + 'categoria/', { 'descripcion': descripcion });
   }
@@ -41,6 +48,43 @@ export class ApiService {
       "tipoPersona": tipoPersona,
       "fechaNacimiento": fechaNacimiento
     });
+  }
+  editarPaciente(id: number, nombre: string, apellido: string, email: string, telefono: string, ruc: string, cedula: string, tipoPersona: string, fechaNacimiento: string) {
+
+    let update = {
+      "idPersona": id,
+      "nombre": nombre,
+      "apellido": apellido,
+      "email": email,
+      "telefono": telefono,
+      "ruc": ruc,
+      "cedula": cedula,
+      "tipoPersona": tipoPersona,
+      "fechaNacimiento": `${fechaNacimiento} 00:00:00`,
+      "usuarioLogin": null,
+      "idLocalDefecto": null,
+      "flagVendedor": null,
+      "flagTaxfree": null,
+      "flagExcepcionChequeoVenta": null,
+      "observacion": null,
+      "direccion": null,
+      "idCiudad": null,
+      "tipoCliente": "MINORISTA",
+      "fechaHoraAprobContrato": null,
+      "soloUsuariosDelSistema": null,
+      "soloPersonasTaxfree": null,
+      "nombreCompleto": `${nombre} ${apellido}`,
+      "limiteCredito": null,
+      "soloProximosCumpleanhos": null,
+      "todosLosCampos": null,
+      "incluirLimiteDeCredito": null,
+      "deuda": null,
+      "saldo": null,
+      "creditos": null
+    }
+    console.log('aca estoy');
+    console.log(update);
+    return this.http.put<any>(this.urlBase + 'persona', update);
   }
 
 
@@ -75,13 +119,12 @@ export class ApiService {
     return this.http.delete(this.urlBase + 'fichaClinica/' + id);
   }
   createfichaClinica(motivoConsulta: string, diagnostico: string, observacion: string, idTipoProducto: number, idEmpleado: number, idCliente: number) {
-  
-  let options = {
-  headers: new HttpHeaders({"Access-Control-Allow-Headers":'Content-Type', 'Content-Type': 'application/json','usuario': 'usuario1'})
-  }
-    let pistola={ 'motivoConsulta': motivoConsulta, 'diagnostico': diagnostico, 'observacion': observacion, 'idTipoProducto':{'idTipoProducto':idTipoProducto}, 'idEmpleado': {'idPersona':idEmpleado}, 'idCliente': {'idPersona':idCliente} }
-   
-    console.log("pistola",pistola)
+    let options = {
+      headers: new HttpHeaders({ "Access-Control-Allow-Headers": 'Content-Type', 'Content-Type': 'application/json', 'usuario': 'usuario1' })
+    }
+    let pistola = { 'motivoConsulta': motivoConsulta, 'diagnostico': diagnostico, 'observacion': observacion, 'idTipoProducto': { 'idTipoProducto': idTipoProducto }, 'idEmpleado': { 'idPersona': idEmpleado }, 'idCliente': { 'idPersona': idCliente } }
+
+    console.log("pistola", pistola)
     return this.http.post<any>(this.urlBase + 'fichaClinica/', pistola, options);
   }
   editarfichaClinica(idFichaClinica: number, motivoConsulta: string, diagnostico: string, observacion: string) {
@@ -91,6 +134,8 @@ export class ApiService {
   getAllFisioterapeutas(): Observable<Listadatos<any>> {
     return this.http.get<Listadatos<any>>(this.urlBase + 'persona?ejemplo=%7B%22soloUsuariosDelSistema%22%3Atrue%7D');
   }
-
-
+  //--------------Login------------------------------------------------------------------------------------
+  getAllUser(): Observable<Listadatos<Persona>> {
+    return this.http.get<any>(this.urlBase + 'persona');
+  }
 }
