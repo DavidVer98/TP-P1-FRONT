@@ -128,9 +128,9 @@ export class ApiService {
     console.log("pistola", pistola)
     return this.http.post<any>(this.urlBase + 'fichaClinica/', pistola, options);
   }
-  editarfichaClinica(idFichaClinica: number, motivoConsulta: string, diagnostico: string, observacion: string) {
-    console.log("Editar", { idFichaClinica, motivoConsulta, diagnostico, observacion })
-    return this.http.put<any>(this.urlBase + 'fichaClinica', { 'idFichaClinica': idFichaClinica, 'motivoConsulta': motivoConsulta, 'diagnostico': diagnostico, 'observacion': observacion });
+  editarfichaClinica(idFichaClinica: number, observacion: string) {
+    console.log("Editar", { idFichaClinica, observacion })
+    return this.http.put<any>(this.urlBase + 'fichaClinica', { 'idFichaClinica': idFichaClinica, 'observacion': observacion });
   }
   getAllFisioterapeutas(): Observable<Listadatos<any>> {
     return this.http.get<Listadatos<any>>(this.urlBase + 'persona?ejemplo=%7B%22soloUsuariosDelSistema%22%3Atrue%7D');

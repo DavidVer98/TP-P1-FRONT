@@ -99,7 +99,7 @@ export class FichaClinicaModalComponent implements OnInit {
   }
   
   editarFichaClinica() {
-    this.apiService.editarfichaClinica(this.data.id, this.fichaclinica.motivoConsulta, this.fichaclinica.diagnostico, this.fichaclinica.observacion).subscribe({
+    this.apiService.editarfichaClinica(this.data.id, this.fichaclinica.observacion).subscribe({
       next: (data) => {
         console.log(data);
       },

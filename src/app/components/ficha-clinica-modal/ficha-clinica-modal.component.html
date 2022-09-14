@@ -64,14 +64,14 @@
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Motivo de la consulta</mat-label>
           <input [(ngModel)]="fichaclinica.motivoConsulta" name="motivoConsulta" matInput maxlength="256"
-            placeholder="Farmacos" />
+            placeholder="Farmacos" [disabled]="true"/>
         </mat-form-field>
       </li>
       <li>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Diagnostico</mat-label>
           <input [(ngModel)]="fichaclinica.diagnostico" name="diagnostico" matInput maxlength="256" 
-            placeholder="Farmacos" />
+            placeholder="Farmacos" [disabled]="true"/>
         </mat-form-field>
       </li>
       <li>
