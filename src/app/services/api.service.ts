@@ -11,6 +11,7 @@ import { SubCategoria } from '../models/subCategoria.models';
 
 import { HttpHeaders } from '@angular/common/http';
 import { Persona } from '../models/user.models';
+import { Reserva } from '../models/reserva.models';
 
 
 @Injectable({
@@ -46,7 +47,7 @@ export class ApiService {
       "ruc": ruc,
       "cedula": cedula,
       "tipoPersona": tipoPersona,
-      "fechaNacimiento": fechaNacimiento
+      "fechaNacimiento": `${fechaNacimiento} 00:00:00`
     });
   }
   editarPaciente(id: number, nombre: string, apellido: string, email: string, telefono: string, ruc: string, cedula: string, tipoPersona: string, fechaNacimiento: string) {
@@ -137,5 +138,9 @@ export class ApiService {
   //--------------Login------------------------------------------------------------------------------------
   getAllUser(): Observable<Listadatos<Persona>> {
     return this.http.get<any>(this.urlBase + 'persona');
+  }
+  //--------------Reserva------------------------------------------------------------------------------------
+ getAllReserva(): Observable<ListadatosSub<Reserva>> {
+    return this.http.get<ListadatosSub<Reserva>>(this.urlBase + 'reserva');
   }
 }

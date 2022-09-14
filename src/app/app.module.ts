@@ -24,12 +24,13 @@ import { FichaClinicaModalComponent } from './components/ficha-clinica-modal/fic
 import { LoginComponent } from './components/login/login.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ReservaComponent } from './components/reserva/reserva.component';
 
 @NgModule({
 
 
 
-  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent],
+  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent, ReservaComponent],
   
 
 

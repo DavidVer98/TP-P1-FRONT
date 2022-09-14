@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CategoriaComponent } from '../categoria/categoria.component';
 import { FichaClinicaComponent } from '../ficha-clinica/ficha-clinica.component';
 import { PacienteComponent } from '../paciente/paciente.component';
+import { ReservaComponent } from '../reserva/reserva.component';
 import { SubCategoriaComponent } from '../sub-categoria/sub-categoria.component';
 import { DashboardComponent } from './dashboard.component';
 
@@ -12,7 +13,8 @@ const routes: Routes = [
 
     { path: 'subCategoria', component: SubCategoriaComponent },
     { path: 'paciente', component: PacienteComponent },
-    { path: 'fichaclinica', component: FichaClinicaComponent }
+    { path: 'fichaclinica', component: FichaClinicaComponent },
+    { path: 'reserva', component:ReservaComponent }
   ]}
 ];
 
