@@ -12,7 +12,6 @@ import { SubCategoria } from '../models/subCategoria.models';
 import { HttpHeaders } from '@angular/common/http';
 import { Persona } from '../models/user.models';
 import { Reserva } from '../models/reserva.models';
-import {ListadoServicio9, Servicio9} from "../models/servicio9";
 
 
 @Injectable({
@@ -129,9 +128,9 @@ export class ApiService {
     console.log("pistola", pistola)
     return this.http.post<any>(this.urlBase + 'fichaClinica/', pistola, options);
   }
-  editarfichaClinica(idFichaClinica: number, motivoConsulta: string, diagnostico: string, observacion: string) {
-    console.log("Editar", { idFichaClinica, motivoConsulta, diagnostico, observacion })
-    return this.http.put<any>(this.urlBase + 'fichaClinica', { 'idFichaClinica': idFichaClinica, 'motivoConsulta': motivoConsulta, 'diagnostico': diagnostico, 'observacion': observacion });
+  editarfichaClinica(idFichaClinica: number, observacion: string) {
+    console.log("Editar", { idFichaClinica, observacion })
+    return this.http.put<any>(this.urlBase + 'fichaClinica', { 'idFichaClinica': idFichaClinica, 'observacion': observacion });
   }
   getAllFisioterapeutas(): Observable<Listadatos<any>> {
     return this.http.get<Listadatos<any>>(this.urlBase + 'persona?ejemplo=%7B%22soloUsuariosDelSistema%22%3Atrue%7D');
@@ -144,28 +143,11 @@ export class ApiService {
  getAllReserva(): Observable<ListadatosSub<Reserva>> {
     return this.http.get<ListadatosSub<Reserva>>(this.urlBase + 'reserva');
   }
-  //--------------Servicio9------------------------------------------------------------------------------------
-  getAllServicios9(){
-    return this.http.get<ListadoServicio9>(this.urlBase + 'servicio')
+  editarReserva(idReserva:number, dato:object): Observable<Reserva> {
+    return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
   }
-
-  getAllPresentacionProducto(){
-    return this.http.get<any>(this.urlBase + 'presentacionProducto')
+  cancelarReserva(idReserva:number): any{
+    return this.http.delete(this.urlBase + 'reserva/' + idReserva);
   }
-
-  createServicios9(data:any){
-    let options = {
-      headers: new HttpHeaders({ "Access-Control-Allow-Headers": 'Content-Type', 'Content-Type': 'application/json', 'usuario': 'usuario1' })
-    }
-    return this.http.post<any>(this.urlBase + 'servicio/', data, options);
-  }
-
-  deleteServicios9(servicio:number, detalle:number) {
-    let url = `${this.urlBase}servicio/${servicio}/detalle/${detalle}`
-    return this.http.delete(url);
-  }
-
-
 
 }
-

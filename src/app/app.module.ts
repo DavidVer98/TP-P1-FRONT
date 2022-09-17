@@ -19,17 +19,19 @@ import {SubCategoriaModalComponent} from './components/sub-categoria-modal/sub-c
 import {PacienteComponent} from './components/paciente/paciente.component';
 import {PacienteModalComponent} from './components/paciente-modal/paciente-modal.component';
 
-import {FichaClinicaComponent} from './components/ficha-clinica/ficha-clinica.component';
-import {FichaClinicaModalComponent} from './components/ficha-clinica-modal/ficha-clinica-modal.component';
-import {LoginComponent} from './components/login/login.component';
-import {DashboardModule} from './components/dashboard/dashboard.module';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
-import {ReservaComponent} from './components/reserva/reserva.component';
+import { FichaClinicaComponent } from './components/ficha-clinica/ficha-clinica.component';
+import { FichaClinicaModalComponent } from './components/ficha-clinica-modal/ficha-clinica-modal.component';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardModule } from './components/dashboard/dashboard.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ReservaComponent } from './components/reserva/reserva.component';
+import { ReservaModalComponent } from './components/reserva-modal/reserva-modal.component';
 import {Servicio9Component} from './components/servicio9/servicio9.component';
 import {MatSortModule} from "@angular/material/sort";
 import { Servicio9ModalComponent } from './components/servicio9-modal/servicio9-modal.component';
 
 @NgModule({
+
   declarations: [
     AppComponent,
     NavbarComponent,
@@ -47,6 +49,7 @@ import { Servicio9ModalComponent } from './components/servicio9-modal/servicio9-
     Servicio9Component,
     Servicio9ModalComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

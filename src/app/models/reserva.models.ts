@@ -6,4 +6,5 @@ export class Reserva {
   horaFinCadena!: string;
   idEmpleado!:Persona;
   idCliente!:Persona;
+  observacion!:string;
 }
