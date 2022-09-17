@@ -25,13 +25,21 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
+<<<<<<< HEAD
 import { ReportesComponent } from './components/reportes/reportes.component';
+=======
+import { ReservaModalComponent } from './components/reserva-modal/reserva-modal.component';
+>>>>>>> e1fd0b9e59096356a98d32b775e257f76ba337a3
 
 @NgModule({
 
 
 
+<<<<<<< HEAD
   declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent, ReservaComponent, ReportesComponent],
+=======
+  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent, ReservaComponent, ReservaModalComponent],
+>>>>>>> e1fd0b9e59096356a98d32b775e257f76ba337a3
   
 
 

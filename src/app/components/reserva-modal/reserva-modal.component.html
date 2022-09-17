@@ -1,0 +1,47 @@
+<div *ngIf="data.tipo == 'edit'">
+  <form class="example-form">
+    <h1>Editar Reserva</h1>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Observacion</mat-label>
+      <input
+        [(ngModel)]="reserva"
+        name="observacion"
+        matInput
+        maxlength="256"
+        placeholder="Observacion"
+      />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="editarReserva()"
+      mat-dialog-close
+    >
+      Guardar
+    </button>
+  </form>
+</div>
+
+<div *ngIf="data.tipo == 'delete'">
+  <h1 mat-dialog-title>Cancelar Reserva</h1>
+  <div mat-dialog-content>¿Estas seguro?</div>
+  <div mat-dialog-actions>
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="cancelarReserva()"
+      mat-dialog-close
+    >
+      Aceptar
+    </button>
+    <button
+      mat-button
+      mat-dialog-close
+      cdkFocusInitial
+      mat-raised-button
+      color="warn"
+    >
+      Cancelar
+    </button>
+  </div>
+</div>
