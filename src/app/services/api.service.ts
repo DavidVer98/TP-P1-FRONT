@@ -12,6 +12,7 @@ import { SubCategoria } from '../models/subCategoria.models';
 import { HttpHeaders } from '@angular/common/http';
 import { Persona } from '../models/user.models';
 import { Reserva } from '../models/reserva.models';
+import {ListadoServicio9, Servicio9} from "../models/servicio9";
 
 
 @Injectable({
@@ -143,4 +144,28 @@ export class ApiService {
  getAllReserva(): Observable<ListadatosSub<Reserva>> {
     return this.http.get<ListadatosSub<Reserva>>(this.urlBase + 'reserva');
   }
+  //--------------Servicio9------------------------------------------------------------------------------------
+  getAllServicios9(){
+    return this.http.get<ListadoServicio9>(this.urlBase + 'servicio')
+  }
+
+  getAllPresentacionProducto(){
+    return this.http.get<any>(this.urlBase + 'presentacionProducto')
+  }
+
+  createServicios9(data:any){
+    let options = {
+      headers: new HttpHeaders({ "Access-Control-Allow-Headers": 'Content-Type', 'Content-Type': 'application/json', 'usuario': 'usuario1' })
+    }
+    return this.http.post<any>(this.urlBase + 'servicio/', data, options);
+  }
+
+  deleteServicios9(servicio:number, detalle:number) {
+    let url = `${this.urlBase}servicio/${servicio}/detalle/${detalle}`
+    return this.http.delete(url);
+  }
+
+
+
 }
+
