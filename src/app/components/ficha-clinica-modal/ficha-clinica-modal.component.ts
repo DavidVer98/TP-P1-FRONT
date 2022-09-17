@@ -23,7 +23,7 @@ export class FichaClinicaModalComponent implements OnInit {
   idTipoProducto_send=0;
   idEmpleado_send = 0;
   idCliente_send = 0;
-
+  test="pistoleo de esto"
   personaFisioterapeuta:PersonaModel[]=[]
   personaCliente:PersonaModel[]=[]
   subCategoria:SubCategoria[]=[]
@@ -44,6 +44,7 @@ export class FichaClinicaModalComponent implements OnInit {
       idEmpleado:this.data.idEmpleado,
       idCliente:this.data.idCliente
     }
+    console.log("aaa", this.idEmpleado)
     this.apiService.getAllFisioterapeutas().subscribe({
       next: (data1) => {
         console.log('response received', data1);

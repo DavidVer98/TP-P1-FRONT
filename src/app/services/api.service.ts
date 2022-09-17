@@ -143,4 +143,11 @@ export class ApiService {
  getAllReserva(): Observable<ListadatosSub<Reserva>> {
     return this.http.get<ListadatosSub<Reserva>>(this.urlBase + 'reserva');
   }
+  editarReserva(idReserva:number, dato:object): Observable<Reserva> {  
+    return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
+  }
+  cancelarReserva(idReserva:number): any{ 
+    return this.http.delete(this.urlBase + 'reserva/' + idReserva);
+  }
+  
 }

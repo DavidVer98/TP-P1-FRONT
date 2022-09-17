@@ -25,12 +25,13 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
+import { ReservaModalComponent } from './components/reserva-modal/reserva-modal.component';
 
 @NgModule({
 
 
 
-  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent, ReservaComponent],
+  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent, ReservaComponent, ReservaModalComponent],
   
 
 
