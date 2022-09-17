@@ -3,7 +3,7 @@ import { ApiService } from '../../services/api.service';
 import { Categoria } from '../../models/categoria.models';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CategoriaModalComponent } from '../categoriaModal/categoriaModal.component';
 
 export interface PeriodicElement {
@@ -38,7 +38,8 @@ export class CategoriaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource(this.categoria);
 
-  constructor(private apiService: ApiService, private matdialog: MatDialog) {}
+  constructor(private apiService: ApiService, private matdialog: MatDialog, public matDialogRef: MatDialogRef<CategoriaModalComponent>) {}
+  fileNameDialogRef!: MatDialogRef<CategoriaModalComponent>;
 
   ngOnInit(): void {
     this.apiService.getAllCategoria().subscribe({
@@ -89,5 +90,19 @@ export class CategoriaComponent implements OnInit {
         descripcionCategoria: this.dataSource.filteredData.find(data => data.idCategoria == idCategoria)?.descripcion
       }
       } )
+  }
+
+  openAddFileDialog(idCategoria : number) {
+    this.fileNameDialogRef = this.matdialog.open(CategoriaModalComponent,{
+      data:{
+        tipo: "edit",
+        id: idCategoria,
+        descripcionCategoria: this.dataSource.filteredData.find(data => data.idCategoria == idCategoria)?.descripcion
+      }
+      });
+
+    this.fileNameDialogRef.afterClosed().subscribe(name => {
+      console.log(name)
+    })
   }
 }
