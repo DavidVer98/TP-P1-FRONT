@@ -25,6 +25,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReservaModalComponent } from './components/reserva-modal/reserva-modal.component';
 import {Servicio9Component} from './components/servicio9/servicio9.component';
 import {MatSortModule} from "@angular/material/sort";
@@ -46,8 +47,10 @@ import { Servicio9ModalComponent } from './components/servicio9-modal/servicio9-
     LoginComponent,
     DashboardComponent,
     ReservaComponent,
+    ReservaModalComponent,
+    ReportesComponent,
     Servicio9Component,
-    Servicio9ModalComponent
+    Servicio9ModalComponent,
   ],
 
   imports: [
@@ -60,7 +63,7 @@ import { Servicio9ModalComponent } from './components/servicio9-modal/servicio9-
     CommonModule,
     DashboardModule,
     MatSortModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

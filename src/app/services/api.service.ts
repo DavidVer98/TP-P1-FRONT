@@ -12,6 +12,7 @@ import { SubCategoria } from '../models/subCategoria.models';
 import { HttpHeaders } from '@angular/common/http';
 import { Persona } from '../models/user.models';
 import { Reserva } from '../models/reserva.models';
+import { Servicios } from '../models/servicios.models';
 
 
 @Injectable({
@@ -143,6 +144,13 @@ export class ApiService {
  getAllReserva(): Observable<ListadatosSub<Reserva>> {
     return this.http.get<ListadatosSub<Reserva>>(this.urlBase + 'reserva');
   }
+<<<<<<< HEAD
+
+  //-----------------Reporte---------------------------------------------------------------------------------
+  getReporte(): Observable<Listadatos<Servicios>> {
+    return this.http.get<Listadatos<Servicios>>(this.urlBase + 'servicio');
+  }
+=======
   editarReserva(idReserva:number, dato:object): Observable<Reserva> {
     return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
   }
@@ -150,4 +158,5 @@ export class ApiService {
     return this.http.delete(this.urlBase + 'reserva/' + idReserva);
   }
 
+>>>>>>> e1fd0b9e59096356a98d32b775e257f76ba337a3
 }

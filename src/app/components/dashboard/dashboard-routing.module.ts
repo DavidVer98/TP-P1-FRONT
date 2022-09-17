@@ -6,6 +6,7 @@ import { PacienteComponent } from '../paciente/paciente.component';
 import { ReservaComponent } from '../reserva/reserva.component';
 import { SubCategoriaComponent } from '../sub-categoria/sub-categoria.component';
 import { DashboardComponent } from './dashboard.component';
+import { ReportesComponent } from '../reportes/reportes.component'
 import {Servicio9Component} from "../servicio9/servicio9.component";
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
     { path: 'paciente', component: PacienteComponent },
     { path: 'fichaclinica', component: FichaClinicaComponent },
     { path: 'reserva', component:ReservaComponent },
-      { path: 'servicios', component:Servicio9Component },
+    { path: 'reportes', component:ReportesComponent }
+    { path: 'servicios', component:Servicio9Component },
   ]}
 ];
 
