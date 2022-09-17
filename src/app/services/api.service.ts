@@ -144,19 +144,18 @@ export class ApiService {
  getAllReserva(): Observable<ListadatosSub<Reserva>> {
     return this.http.get<ListadatosSub<Reserva>>(this.urlBase + 'reserva');
   }
-<<<<<<< HEAD
+
+  editarReserva(idReserva:number, dato:object): Observable<Reserva> {
+    return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
+  }
+  cancelarReserva(idReserva:number): any{
+    return this.http.delete(this.urlBase + 'reserva/' + idReserva);
+  }
 
   //-----------------Reporte---------------------------------------------------------------------------------
   getReporte(): Observable<Listadatos<Servicios>> {
     return this.http.get<Listadatos<Servicios>>(this.urlBase + 'servicio');
   }
-=======
-  editarReserva(idReserva:number, dato:object): Observable<Reserva> {  
-    return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
-  }
-  cancelarReserva(idReserva:number): any{ 
-    return this.http.delete(this.urlBase + 'reserva/' + idReserva);
-  }
-  
->>>>>>> e1fd0b9e59096356a98d32b775e257f76ba337a3
+
+
 }
