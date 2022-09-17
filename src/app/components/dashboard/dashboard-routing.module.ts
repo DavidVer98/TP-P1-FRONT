@@ -6,6 +6,7 @@ import { PacienteComponent } from '../paciente/paciente.component';
 import { ReservaComponent } from '../reserva/reserva.component';
 import { SubCategoriaComponent } from '../sub-categoria/sub-categoria.component';
 import { DashboardComponent } from './dashboard.component';
+import { ReportesComponent } from '../reportes/reportes.component'
 
 const routes: Routes = [
   {path:'',component:DashboardComponent, children:[
@@ -14,7 +15,8 @@ const routes: Routes = [
     { path: 'subCategoria', component: SubCategoriaComponent },
     { path: 'paciente', component: PacienteComponent },
     { path: 'fichaclinica', component: FichaClinicaComponent },
-    { path: 'reserva', component:ReservaComponent }
+    { path: 'reserva', component:ReservaComponent },
+    { path: 'reportes', component:ReportesComponent }
   ]}
 ];
 
