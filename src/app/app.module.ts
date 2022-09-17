@@ -26,12 +26,13 @@ import { DashboardModule } from './components/dashboard/dashboard.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
 import { ReservaModalComponent } from './components/reserva-modal/reserva-modal.component';
+import { BuscarfisioterapeutaComponent } from './components/buscarfisioterapeuta/buscarfisioterapeuta.component';
 
 @NgModule({
 
 
 
-  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent, ReservaComponent, ReservaModalComponent],
+  declarations: [AppComponent, NavbarComponent, CategoriaComponent, CategoriaModalComponent, SubCategoriaComponent, SubCategoriaModalComponent,PacienteComponent, PacienteModalComponent, FichaClinicaComponent, FichaClinicaModalComponent, LoginComponent, DashboardComponent, ReservaComponent, ReservaModalComponent, BuscarfisioterapeutaComponent],
   
 
 

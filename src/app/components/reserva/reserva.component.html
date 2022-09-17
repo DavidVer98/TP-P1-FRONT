@@ -1,109 +1,163 @@
 <div class="container">
-    <!-- <mat-toolbar>
+  <!-- <mat-toolbar>
       <span>Categoria</span>
       <button mat-raised-button color="primary" (click)="openPopup()">Primary</button>
   
     </mat-toolbar> -->
-    <h1>Reservas</h1>
-  
-    <!-- <mat-form-field appearance="standard">
-      <mat-label>Filter</mat-label>
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Ejemplo: Trauma"
-        #input
-      />
-    </mat-form-field> -->
-    <div class="mat-elevation-z1">
-      <table mat-table [dataSource]="dataSource" class="container">
-        <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-        <!-- Position Column -->
-        <ng-container matColumnDef="fecha">
-          <th mat-header-cell *matHeaderCellDef>Fecha</th>
-          <td mat-cell *matCellDef="let element" >{{ element.fecha}} </td>
-        </ng-container>
-  
-        <!-- Name Column -->
-        <ng-container matColumnDef="horaInicioCadena">
-          <th mat-header-cell *matHeaderCellDef>Hora de inicio</th>
-          <td mat-cell *matCellDef="let element">{{ element.horaInicio }}</td>
-        </ng-container>
-  
-        <!-- Weight Column -->
-        <ng-container matColumnDef="horaFinCadena">
-          <th mat-header-cell *matHeaderCellDef>Hora de fin</th>
-          <td mat-cell *matCellDef="let element">{{ element.horaFin}}</td>
-        </ng-container>
-  
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="idEmpleado">
-          <th mat-header-cell *matHeaderCellDef>Fisioterapeuta</th>
-          <td mat-cell *matCellDef="let element">{{ element.idEmpleado.nombre }}</td>
-        </ng-container>
+  <h1>Reservas</h1>
 
-        <ng-container matColumnDef="idCliente">
-            <th mat-header-cell *matHeaderCellDef>Cliente</th>
-            <td mat-cell *matCellDef="let element">{{ element.idCliente.nombre }}</td>
-        </ng-container>
   
-        <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td
-            mat-cell
-            *matCellDef="let element; let id = index"
-            style="text-align: left"
-          >
-            <a
-              style="color: #1f516f"
-              matTooltip="Editar"
-              aria-label="Button that displays a tooltip when focused or hovered over"
-              (click)="editarReserva(element.idReserva)"
-            >
-              <mat-icon> edit </mat-icon></a
-            >
-            <a
-              style="color: #e43c3c"
-              matTooltip="Cancelar"
-              aria-label="Button that displays a tooltip when focused or hovered over"
-              (click)="cancelarReserva(element.idReserva)"
-            >
-              <mat-icon> cancel </mat-icon></a
-            >
-            <a
-              style="color: #0a7707"
-              matTooltip="Agregar ficha"
-              aria-label="Button that displays a tooltip when focused or hovered over"
-              (click)="agregarFicha(element.idReserva, element.idEmpleado, element.idCliente)"
-            >
-              <mat-icon> assignment  </mat-icon></a
-            >
-          </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-      <mat-paginator
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        aria-label="Select page of users"
-        style="margin-bottom: 50px"
-      ></mat-paginator>
+    <div >
+        <label for="empleado">Empleado</label>
+        <div >
+            <input type="text" id="empleado" name="empleado" readonly
+                [(ngModel)]="empleado.nombre">
+            <div >
+                <button  data-bs-toggle="modal" data-bs-target="#empleadoModal"
+                    type="button">Buscar</button>
+            </div>
+        </div>
+    
+        <label for="cliente">Cliente</label>
+        <div >
+            <input type="text" id="cliente" readonly name="cliente"
+                [(ngModel)]="cliente.nombre">
+            <div >
+                <button  data-bs-toggle="modal" data-bs-target="#clienteModal"
+                    type="button">Buscar</button>
+            </div>
+        </div>
+    </div>
+
+
+
+  <div>
+    <label for="fechaDesde">Desde</label>
+    <input
+      type="date"
+      id="fechaDesde"
+      name="fechaDesde"
+      [(ngModel)]="filtros.fechaDesde"
+    />
+  </div>
+  <div>
+    <label for="fechaHasta">Hasta</label>
+    <input
+      type="date"
+      id="fechaHasta"
+      name="fechaHasta"
+      [(ngModel)]="filtros.fechaHasta"
+    />
+  </div>
+  <div>
+    <div>
+      <button type="button" (click)="buscar()">Buscar</button>
     </div>
   </div>
-  <div
-    class="example-button-container"
-    style="position: fixed; right: 5em; bottom: 4em"
-  >
-    <button
-      mat-fab
-      color="warn"
-      aria-label="Example icon button with a home icon"
-     
-    >
-      <mat-icon>add</mat-icon>
-    </button>
+
+  <div class="mat-elevation-z1">
+    <table mat-table [dataSource]="dataSource" class="container">
+      <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let element">{{ element.fecha }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="horaInicioCadena">
+        <th mat-header-cell *matHeaderCellDef>Hora de inicio</th>
+        <td mat-cell *matCellDef="let element">{{ element.horaInicio }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="horaFinCadena">
+        <th mat-header-cell *matHeaderCellDef>Hora de fin</th>
+        <td mat-cell *matCellDef="let element">{{ element.horaFin }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="idEmpleado">
+        <th mat-header-cell *matHeaderCellDef>Fisioterapeuta</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.idEmpleado.nombre }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="idCliente">
+        <th mat-header-cell *matHeaderCellDef>Cliente</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.idCliente.nombre }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td
+          mat-cell
+          *matCellDef="let element; let id = index"
+          style="text-align: left"
+        >
+          <a
+            style="color: #1f516f"
+            matTooltip="Editar"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            (click)="editarReserva(element.idReserva)"
+          >
+            <mat-icon> edit </mat-icon></a
+          >
+          <a
+            style="color: #e43c3c"
+            matTooltip="Cancelar"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            (click)="cancelarReserva(element.idReserva)"
+          >
+            <mat-icon> cancel </mat-icon></a
+          >
+          <a
+            style="color: #0a7707"
+            matTooltip="Agregar ficha"
+            aria-label="Button that displays a tooltip when focused or hovered over"
+            (click)="
+              agregarFicha(
+                element.idReserva,
+                element.idEmpleado,
+                element.idCliente
+              )
+            "
+          >
+            <mat-icon> assignment </mat-icon></a
+          >
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page of users"
+      style="margin-bottom: 50px"
+    ></mat-paginator>
   </div>
-  
+</div>
+<div
+  class="example-button-container"
+  style="position: fixed; right: 5em; bottom: 4em"
+>
+  <button
+    mat-fab
+    color="warn"
+    aria-label="Example icon button with a home icon"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div class="mat-elevation-z1">
+<div class="modal fade" id="empleadoModal" tabindex="-1" aria-hidden="true">
+  <app-buscarfisioterapeuta (seleccionarEmpleadoEvent)="seleccionarEmpleado($event)"></app-buscarfisioterapeuta>
+</div>
+</div>

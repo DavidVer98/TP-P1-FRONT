@@ -1,0 +1,53 @@
+<div >
+    <div >
+      <div >
+        <h5  id="exampleModalLabel">Buscar Empleado</h5>
+        <button type="button"  data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div >
+        <form>
+            <div >
+                <div >
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" type="text" name="nombre"  [(ngModel)]="nombre">
+                </div>
+                <div >
+                    <label for="apellido">Apellido</label>
+                    <input id="apellido" type="text"  name="apellido" [(ngModel)]="apellido">
+                </div>
+               
+            </div>
+            <div >
+              <div >
+                <button type="button"  (click)="buscar()">Buscar</button>
+              </div>
+            </div>
+        </form>  
+        <div >
+            <table >
+              <thead>
+                <tr>
+                  <th scope="col" *ngFor="let header of columns" >{{header}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let group of data ">
+                  <td>{{group.nombre}}</td>
+                  <td>{{group.apellido}}</td>
+                  <td>{{group.email}}</td>
+                  <td>{{group.telefono}}</td>
+                  <td>{{group.ruc}}</td>
+                  <td>{{group.cedula}}</td>
+                  <td>{{group.fechaNacimiento}}</td>
+                  <td><button data-bs-dismiss="modal" (click)="seleccionarEmpleado(group)">Seleccionar</button></td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            
+      </div>
+      <div >
+      </div>
+    </div>
+</div>
+
