@@ -34,7 +34,8 @@ export class ReservaComponent implements OnInit {
     'horaFinCadena',
     'idEmpleado',
     'idCliente',
-    'acciones',
+    'observacion',
+    'acciones'
   ];
 
   filtros: Filtro = {};
@@ -74,6 +75,14 @@ export class ReservaComponent implements OnInit {
 
   buscar(): void{
     this.getReservas();
+  }
+
+  crearReserva(){
+    this.matdialog.open(ReservaModalComponent, {
+      data:{
+        tipo: "create"
+      }
+      })
   }
 
   editarReserva(idReserva: number) {
@@ -136,8 +145,6 @@ export class ReservaComponent implements OnInit {
     })
   }
 
-
-
   changeFechaInicio(evt:any){
     this.filtros.fechaDesde = moment(evt.value).format('YYYYMMDD')
   }
@@ -145,10 +152,5 @@ export class ReservaComponent implements OnInit {
   changeFechaFin(evt:any){
     this.filtros.fechaHasta = moment(evt.value).format('YYYYMMDD')
   }
-
-
-
-
-
 
 }

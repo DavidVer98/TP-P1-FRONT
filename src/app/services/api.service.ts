@@ -20,6 +20,7 @@ import { ProductoAdminSistema } from '../models/productoAdminSistemas.models';
 
 import { Servicios } from '../models/servicios.models';
 import {ListadoServicio9} from "../models/servicio9";
+import {HorarioExcepcion} from "../models/horarioExcepcion";
 
 
 @Injectable({
@@ -34,6 +35,12 @@ export class ApiService {
   getAllPaciente(): Observable<ListadatosG<PersonaModel>> {
     return this.http.get<Listadatos<PersonaModel>>(this.urlBase + 'persona');
   }
+
+  getAllPacienteFisioterapeutas(): Observable<ListadatosG<PersonaModel>> {
+    let url = `${this.urlBase}persona?ejemplo=${encodeURIComponent('{"soloUsuariosDelSistema":true}')}`
+    return this.http.get<Listadatos<PersonaModel>>(url);
+  }
+
   deleteOnceCategoria(id: number): any {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'categoria/' + id);
@@ -183,12 +190,49 @@ export class ApiService {
       descripcion: descripcion,
     });
   }
-  //ficha Clinica
+
+  getAllCategoriaOrder(): Observable<Listadatos<Categoria>> {
+    return this.http.get<Listadatos<Categoria>>(this.urlBase + 'categoria?orderBy=descripcion&orderDir=asc');
+  }
+
+  getSubCategoriaQueryParams(stringQuery:string){
+    let encodedUrl = `${this.urlBase}tipoProducto?like=S&ejemplo=${encodeURIComponent(stringQuery)}`
+    return this.http.get<ListadatosSub<SubCategoria>>(encodedUrl)
+  }
+
+
+  //------------------------------------------------------ Ficha Clinica----------------------------------------------------
   getAllfichaClinica(): Observable<Listadatos<FichaClinicaModel>> {
     return this.http.get<Listadatos<FichaClinicaModel>>(
       this.urlBase + 'fichaClinica'
     );
   }
+  getFilteredfichaClinica(filtros:any): Observable<Listadatos<FichaClinicaModel>> {
+    let dato: any = {};
+    if (filtros.fechaDesde) {
+      dato['fechaDesdeCadena'] = filtros.fechaDesde.split('-').join('');
+    }
+    if (filtros.fechaHasta) {
+      dato['fechaHastaCadena'] = filtros.fechaHasta.split('-').join('');
+    }
+    if (filtros.idCliente) {
+      dato["idCliente"] = { "idPersona": filtros.idCliente }
+    }
+    if (filtros.idEmpleado) {
+      dato['idEmpleado'] = { "idPersona": filtros.idEmpleado}
+    }
+    if (filtros.idTipoProducto){
+      dato['idTipoProducto'] = {"idTipoProducto": filtros.idTipoProducto}
+    }
+    let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
+    
+
+    let encodedUrl = `${this.urlBase}fichaClinica?ejemplo=${encodeURIComponent(JSON.stringify(dato))}`
+    console.log("eskere", encodedUrl, dato)
+    return this.http.get<Listadatos<FichaClinicaModel>>(encodedUrl);
+  }
+
+
   deleteOncefichaClinica(id: number): any {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'fichaClinica/' + id);
@@ -261,20 +305,38 @@ export class ApiService {
       dato['idEmpleado'] = { "idPersona": filtros.idEmpleado}
     }
     let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
-
+   
     return this.http.get<Listadatos<Reserva>>(this.urlBase + 'reserva', {
       params,
     });
   }
 
-
+  crearReserva(idCliente:number, idEmpleado:number, fechaCadena:string, horaInicioCadena:string, horaFinCadena:string, observacion:string): Observable<Reserva> {
+    let datos = {
+      fechaCadena: fechaCadena,
+      horaInicioCadena: horaInicioCadena,
+      horaFinCadena: horaFinCadena,
+      observacion: observacion,
+      idCliente: { idPersona: idCliente },
+      idEmpleado: { idPersona: idEmpleado },
+    };
+    let options = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json',
+        usuario: 'usuario1',
+      }),
+    };
+    console.log("olaaa", datos)
+    return this.http.post<any>(this.urlBase + 'reserva', datos, options);
+  }
 
   //-------------------------------------------------------Admin de Servicios ---------------------------------
   getAllServiciosA(): Observable<ListadatosS<ServiciosAdmin>> {
     return this.http.get<Listadatos<ServiciosAdmin>>(this.urlBase + 'presentacionProducto');
     
   }
-  
+
   createServicioAdmin(codigo:number,nombre:string, descripcion:string, idProducto:ProductoAdminSistema, precioventa:number) {
     console.log('qlq pasa aca nderakore',{codigo, nombre, idProducto, precioventa , descripcion});
     return this.http.post<any>(this.urlBase + 'presentacionProducto/', {"codigo":codigo, "flagServicio":"S",idProducto, "nombre":nombre, "descripcion":descripcion, "existenciaProducto":{"precioVenta":precioventa} });
@@ -296,8 +358,6 @@ export class ApiService {
   }
 
 
-
-
   editarReserva(idReserva:number, dato:object): Observable<Reserva> {
     return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
   }
@@ -308,6 +368,10 @@ export class ApiService {
   //-----------------Reporte---------------------------------------------------------------------------------
   getReporte(): Observable<Listadatos<Servicios>> {
     return this.http.get<Listadatos<Servicios>>(this.urlBase + 'servicio');
+  }
+
+  getAllClientes(){
+    return this.http.get<any>(this.urlBase + 'persona?orderBy=nombre&orderDir=asc')
   }
 
   getServiciosQueryParams(stringQuery:string){
@@ -336,5 +400,43 @@ export class ApiService {
     return this.http.delete(url);
   }
 
+  getFilteredServicio9(idFichaClinica:number) {
+    let dato: any = {};
+    dato['idFichaClinica'] = { "idFichaClinica": idFichaClinica}
+    let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
 
+    return this.http.get<ListadoServicio9>(this.urlBase + 'servicio',{params});
+    //  stock-nutrinatalia /servicio?ejemplo={"idEmpleado":{"idPersona":3}}
+
+  }
+
+  getCategorias():Observable<Listadatos<Categoria>>{
+    return this.http.get<Listadatos<Categoria>>(this.urlBase+"categoria");
+  } 
+
+  getTipoProductos(idCategoria: number){
+    let params = new HttpParams()
+    .set('ejemplo', `{"idCategoria":{"idCategoria": ${idCategoria}}}`)
+    return this.http.get<Listadatos<SubCategoria>>(this.urlBase+"tipoProducto",{params:params});
+  }
+
+  //----------------------------------------horarioExcepcion----------------------------------------------------------
+  getAllHorarioExcepcion(){
+    return this.http.get<Listadatos<HorarioExcepcion>>(this.urlBase + 'horarioExcepcion')
+  }
+
+  getHorarioExcepcionQueryParams(stringQuery:string){
+    let encodedUrl = `${this.urlBase}horarioExcepcion?ejemplo=${encodeURIComponent(stringQuery)}`
+    return this.http.get<Listadatos<HorarioExcepcion>>(encodedUrl)
+  }
+
+  createHorarioExcepcion(data:any){
+    let options = {
+      headers: new HttpHeaders({ "Access-Control-Allow-Headers": 'Content-Type', 'Content-Type': 'application/json' })
+    }
+    return this.http.post<any>(this.urlBase + 'horarioExcepcion/', data, options);
+
+  }
 }
+
+

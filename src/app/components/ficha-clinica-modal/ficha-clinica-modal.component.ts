@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { PersonaModel } from 'src/app/models/persona.models';
 import { SubCategoria } from 'src/app/models/subCategoria.models';
 import { ApiService } from 'src/app/services/api.service';
+import { Servicio9 } from 'src/app/models/servicio9';
+
 @Component({
   selector: 'app-ficha-clinica-modal',
   templateUrl: './ficha-clinica-modal.component.html',
@@ -23,14 +25,22 @@ export class FichaClinicaModalComponent implements OnInit {
   idTipoProducto_send=0;
   idEmpleado_send = 0;
   idCliente_send = 0;
-  test="pistoleo de esto"
   personaFisioterapeuta:PersonaModel[]=[]
   personaCliente:PersonaModel[]=[]
   subCategoria:SubCategoria[]=[]
+  servicio:Servicio9[]=[]
+
+  displayedColumns: string[] = [
+    'idServicio',
+    'observacion',
+    'acciones'
+
+  ];
 
   dataSource1 = new MatTableDataSource(this.personaFisioterapeuta);
   dataSource2 = new MatTableDataSource(this.personaCliente);
   dataSource3 = new MatTableDataSource(this.subCategoria);
+  dataSource4 = new MatTableDataSource(this.servicio);
   constructor(
     private apiService: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: { tipo: string, id: number, motivoConsulta: string, diagnostico: string, observacion: string, idTipoProducto:object, idEmpleado: object, idCliente: object   }
@@ -67,6 +77,15 @@ export class FichaClinicaModalComponent implements OnInit {
         this.dataSource3.data = data3.lista;
       },
     });
+    this.apiService.getFilteredServicio9(this.data.id).subscribe({
+      next: (data4) => {
+        console.log('response receivedEEEE', data4);
+        console.log('response receivedEEE', this.data.id);
+        this.servicio = data4.lista;
+        this.dataSource4.data = data4.lista;
+      },
+    });
+    console.log("ESTEEE",this.dataSource4);
 
 
   }

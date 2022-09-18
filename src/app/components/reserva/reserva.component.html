@@ -10,7 +10,7 @@
       <label for="fisioterapeuta">Filtros</label>
       <div class="col-sm">
         <mat-form-field appearance="fill">
-          <mat-label>Fisioterapeuta</mat-label>
+          <mat-label>HorarioExcepcion</mat-label>
           <input
             matInput
             placeholder="fisioterapeuta"
@@ -81,7 +81,7 @@
         color="primary"
         (click)="buscarFisioterapeuta()"
       >
-        Buscar Fisioterapeuta
+        Buscar HorarioExcepcion
       </button>
       </div>
       <div class="col-2"  style="margin-left: 6em;">
@@ -127,7 +127,7 @@
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="idEmpleado">
-        <th mat-header-cell *matHeaderCellDef>Fisioterapeuta</th>
+        <th mat-header-cell *matHeaderCellDef>HorarioExcepcion</th>
         <td mat-cell *matCellDef="let element">
           {{ element.idEmpleado.nombre }} {{ element.idEmpleado.apellido }}
         </td>
@@ -137,6 +137,12 @@
         <th mat-header-cell *matHeaderCellDef>Cliente</th>
         <td mat-cell *matCellDef="let element">
           {{ element.idCliente.nombre }} {{ element.idCliente.apellido }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="observacion">
+        <th mat-header-cell *matHeaderCellDef>observacion</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.observacion }} 
         </td>
       </ng-container>
 
@@ -198,6 +204,7 @@
     mat-fab
     color="warn"
     aria-label="Example icon button with a home icon"
+    (click)="crearReserva()"
   >
     <mat-icon>add</mat-icon>
   </button>
