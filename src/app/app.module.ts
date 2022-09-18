@@ -26,6 +26,11 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
+
+import { ServiciosAdminComponent } from './components/serviciosAdmin/serviciosAdmin.component';
+import { ServiciosModalComponent } from './components/servicios-modal/servicios-modal.component';
+
+
 import { ReservaModalComponent } from './components/reserva-modal/reserva-modal.component';
 import { BuscarfisioterapeutaComponent } from './components/buscarfisioterapeuta/buscarfisioterapeuta.component';
 import {ReportesComponent} from './components/reportes/reportes.component';
@@ -56,8 +61,11 @@ import { BuscarclienteComponent } from './components/buscarcliente/buscarcliente
     Servicio9Component,
     Servicio9ModalComponent,
     BuscarfisioterapeutaComponent,
-    BuscarclienteComponent
+    BuscarclienteComponent,
+    ServiciosAdminComponent, 
+    ServiciosModalComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

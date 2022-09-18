@@ -27,6 +27,12 @@
 <mat-sidenav-container>
   <mat-sidenav mat-button [(opened)]="opened" mode="side">
     <mat-nav-list style="margin-top: 5px">
+
+      <mat-list-item mat-button routerLink="/serviciosAdmin">
+        <mat-icon style="color: #898989">medical_services</mat-icon>
+        <span mat-button class="button-text">Admin. de Servicios</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
       <mat-list-item mat-button routerLink="/servicios">
         <mat-icon style="color: #898989">medical_services</mat-icon>
         <span mat-button class="button-text">Servicios</span>

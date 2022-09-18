@@ -24,15 +24,26 @@
 
     <div class="col-2">
       <mat-form-field appearance="fill">
-        <mat-label>Id del Cliente</mat-label>
-        <input matInput type="number" placeholder="8" [(ngModel)]="query.idCliente">
+        <mat-label>Cliente</mat-label>
+        <mat-select [(ngModel)]="query.idCliente">
+          <mat-option *ngFor="let option of clientes"
+                      [value]="option.idPersona">
+            {{ option.nombre }} {{ option.apellido }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
+
     <div class="col-2">
       <mat-form-field appearance="fill">
-        <mat-label>Id del Empleado</mat-label>
-        <input matInput type="number" placeholder="1" [(ngModel)]="query.idEmpleado">
+        <mat-label>Empleado</mat-label>
+        <mat-select [(ngModel)]="query.idEmpleado">
+          <mat-option *ngFor="let option of clientes"
+                      [value]="option.idPersona">
+            {{ option.nombre }} {{ option.apellido }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
@@ -41,7 +52,6 @@
     </div>
 
   </div>
-
 
 
 </div>

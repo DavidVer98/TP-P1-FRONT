@@ -1,6 +1,8 @@
 <div class="container">
 
   <h1>Paciente</h1>
+  <button mat-flat-button color="primary" (click)="pacientes()">Obtener Pacientes</button>
+  <button mat-flat-button color="primary" (click)="fisioterapeutas()">Obtener Fisioterapeutas</button>
 
   <mat-form-field appearance="standard">
     <mat-label>Filter</mat-label>
@@ -39,7 +41,7 @@
         <th mat-header-cell *matHeaderCellDef>email</th>
         <td mat-cell *matCellDef="let element">{{ element.email }}</td>
       </ng-container>
-      
+
       <ng-container matColumnDef="ruc">
         <th mat-header-cell *matHeaderCellDef>ruc</th>
         <td mat-cell *matCellDef="let element">{{ element.ruc }}</td>

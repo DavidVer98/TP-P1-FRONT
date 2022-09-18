@@ -12,8 +12,15 @@ import { SubCategoria } from '../models/subCategoria.models';
 import { HttpHeaders } from '@angular/common/http';
 import { Persona } from '../models/user.models';
 import { Reserva } from '../models/reserva.models';
+
+import { ListadatosS } from '../models/datosServicios.models';
+import { ServiciosAdmin } from '../models/serviciosAdmin.models';
+import { ProductoAdminSistema } from '../models/productoAdminSistemas.models';
+
+
 import { Servicios } from '../models/servicios.models';
 import {ListadoServicio9} from "../models/servicio9";
+
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +34,12 @@ export class ApiService {
   getAllPaciente(): Observable<ListadatosG<PersonaModel>> {
     return this.http.get<Listadatos<PersonaModel>>(this.urlBase + 'persona');
   }
+
+  getAllPacienteFisioterapeutas(): Observable<ListadatosG<PersonaModel>> {
+    let url = `${this.urlBase}persona?ejemplo=${encodeURIComponent('{"soloUsuariosDelSistema":true}')}`
+    return this.http.get<Listadatos<PersonaModel>>(url);
+  }
+
   deleteOnceCategoria(id: number): any {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'categoria/' + id);
@@ -176,7 +189,18 @@ export class ApiService {
       descripcion: descripcion,
     });
   }
-  //ficha Clinica
+
+  getAllCategoriaOrder(): Observable<Listadatos<Categoria>> {
+    return this.http.get<Listadatos<Categoria>>(this.urlBase + 'categoria?orderBy=descripcion&orderDir=asc');
+  }
+
+  getSubCategoriaQueryParams(stringQuery:string){
+    let encodedUrl = `${this.urlBase}tipoProducto?like=S&ejemplo=${encodeURIComponent(stringQuery)}`
+    return this.http.get<ListadatosSub<SubCategoria>>(encodedUrl)
+  }
+
+
+  //------------------------------------------------------ Ficha Clinica----------------------------------------------------
   getAllfichaClinica(): Observable<Listadatos<FichaClinicaModel>> {
     return this.http.get<Listadatos<FichaClinicaModel>>(
       this.urlBase + 'fichaClinica'
@@ -282,6 +306,7 @@ export class ApiService {
       params,
     });
   }
+
   crearReserva(idCliente:number, idEmpleado:number, fechaCadena:string, horaInicioCadena:string, horaFinCadena:string, observacion:string): Observable<Reserva> {
     let datos = {
       fechaCadena: fechaCadena,
@@ -301,8 +326,32 @@ export class ApiService {
     console.log("olaaa", datos)
     return this.http.post<any>(this.urlBase + 'reserva', datos, options);
   }
- 
- 
+
+  //-------------------------------------------------------Admin de Servicios ---------------------------------
+  getAllServiciosA(): Observable<ListadatosS<ServiciosAdmin>> {
+    return this.http.get<Listadatos<ServiciosAdmin>>(this.urlBase + 'presentacionProducto');
+  }
+  
+  createServicioAdmin(codigo:number,nombre:string, descripcion:string, idProducto:ProductoAdminSistema, precioventa:number) {
+    console.log('qlq pasa aca nderakore',{codigo, nombre, idProducto, precioventa , descripcion});
+    return this.http.post<any>(this.urlBase + 'presentacionProducto/', {"codigo":codigo, "flagServicio":"S",idProducto, "nombre":nombre, "descripcion":descripcion, "existenciaProducto":{"precioVenta":precioventa} });
+  }
+
+  deleteOnceServicioAdmin(id: number): any {
+    console.log('id desde el servicio' + id);
+    return this.http.delete(this.urlBase + 'presentacionProducto/' + id);
+  }
+
+  editarServicioAdmin(idPresentacionProducto: ServiciosAdmin, nombre:string, descripcion: string, idProducto: ProductoAdminSistema) {
+    console.log('alguien en casa?',typeof(idPresentacionProducto));
+    idPresentacionProducto.nombre=nombre;
+    idPresentacionProducto.descripcion=descripcion;
+    idPresentacionProducto.idProducto=idProducto;
+    console.log("Editar ", idPresentacionProducto);
+    console.log("mama felic ucmple",idProducto);
+    return this.http.put<any>(this.urlBase + 'presentacionProducto',  idPresentacionProducto);
+  }
+
 
   editarReserva(idReserva:number, dato:object): Observable<Reserva> {
     return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
@@ -314,6 +363,10 @@ export class ApiService {
   //-----------------Reporte---------------------------------------------------------------------------------
   getReporte(): Observable<Listadatos<Servicios>> {
     return this.http.get<Listadatos<Servicios>>(this.urlBase + 'servicio');
+  }
+
+  getAllClientes(){
+    return this.http.get<any>(this.urlBase + 'persona?orderBy=nombre&orderDir=asc')
   }
 
   getServiciosQueryParams(stringQuery:string){
@@ -352,4 +405,5 @@ export class ApiService {
 
   }
 }
-  
+
+

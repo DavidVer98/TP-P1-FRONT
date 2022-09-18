@@ -7,7 +7,8 @@ import {ListadoServicio9, Servicio9} from "../../models/servicio9";
 import {ApiService} from "../../services/api.service";
 import {MatDialog, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {Servicio9ModalComponent} from "../servicio9-modal/servicio9-modal.component";
-
+import {QueryTipo1} from "../reportes/reportes.component";
+import * as moment from "moment";
 
 
 @Component({
@@ -16,7 +17,7 @@ import {Servicio9ModalComponent} from "../servicio9-modal/servicio9-modal.compon
   styleUrls: ['./servicio9.component.css']
 })
 export class Servicio9Component implements OnInit {
-  displayedColumns: string[] = ['idServicio', 'idFichaClinica', 'fecha','cliente', 'empleado', 'estado', 'presupuesto', 'observacion'];
+  displayedColumns: string[] = ['idServicio', 'idFichaClinica', 'fecha', 'cliente', 'empleado', 'estado', 'presupuesto', 'observacion', 'acciones'];
   columns = [
     {
       columnDef: 'idServicio',
@@ -64,8 +65,11 @@ export class Servicio9Component implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   listado: ListadoServicio9 = {"lista": [], "totalDatos": 0};
+  query: QueryTipo1 = new QueryTipo1()
+  clientes:any
 
   constructor(private apiService: ApiService, private dialog: MatDialog) {
+    this.apiService.getAllClientes().subscribe(value => this.clientes = value.lista)
   }
 
   ngOnInit(): void {
@@ -94,7 +98,7 @@ export class Servicio9Component implements OnInit {
     }
   }
 
-  eliminar(id:number){
+  eliminar(id: number) {
     this.dialog.open(Servicio9ModalComponent, {
       data: {
         tipo: 'delete',
@@ -103,12 +107,31 @@ export class Servicio9Component implements OnInit {
     })
   }
 
-  crear(){
+  crear() {
     this.dialog.open(Servicio9ModalComponent, {
       data: {
         tipo: 'create'
       }
     })
+  }
+
+  setData(data: Servicio9[]) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+
+  search() {
+    this.apiService.getServiciosQueryParams(this.query.makeQuery()).subscribe(value => this.setData(value.lista))
+  }
+
+  changeFechaInicio(evt: any) {
+    this.query.fechaInicio = moment(evt.value).format('YYYYMMDD')
+  }
+
+  changeFechaFin(evt: any) {
+    this.query.fechaFin = moment(evt.value).format('YYYYMMDD')
   }
 
 
