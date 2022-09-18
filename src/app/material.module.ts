@@ -17,12 +17,16 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSortModule} from "@angular/material/sort";
 import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatDatepickerModule
+  ],
   exports: [
     MatToolbarModule,
     MatIconModule,
@@ -41,10 +45,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatDatepickerModule,
     MatNativeDateModule,
-
-
+    MatSortModule
   ],
 })
 export class MaterialModule {}

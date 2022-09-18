@@ -10,6 +10,7 @@ import { BuscarfisioterapeutaComponent } from '../buscarfisioterapeuta/buscarfis
 import { FichaClinicaModalComponent } from '../ficha-clinica-modal/ficha-clinica-modal.component';
 import { ReservaModalComponent } from '../reserva-modal/reserva-modal.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import * as moment from 'moment';
 
 
 type Filtro = {
@@ -48,8 +49,11 @@ export class ReservaComponent implements OnInit {
     }${today.getMonth() + 1}${
       today.getDate() <= 9 ? '0' : ''
     }${today.getDate()}`;
+
+
     this.filtros.fechaDesde = todayString;
     this.filtros.fechaHasta = todayString;
+
 
   }
   fisioterapeutaDialogRef!: MatDialogRef<BuscarfisioterapeutaComponent>;
@@ -134,6 +138,13 @@ export class ReservaComponent implements OnInit {
 
 
 
+  changeFechaInicio(evt:any){
+    this.filtros.fechaDesde = moment(evt.value).format('YYYYMMDD')
+  }
+
+  changeFechaFin(evt:any){
+    this.filtros.fechaHasta = moment(evt.value).format('YYYYMMDD')
+  }
 
 
 
