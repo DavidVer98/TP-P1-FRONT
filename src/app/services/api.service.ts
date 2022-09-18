@@ -282,6 +282,28 @@ export class ApiService {
       params,
     });
   }
+  crearReserva(idCliente:number, idEmpleado:number, fechaCadena:string, horaInicioCadena:string, horaFinCadena:string, observacion:string): Observable<Reserva> {
+    let datos = {
+      fechaCadena: fechaCadena,
+      horaInicioCadena: horaInicioCadena,
+      horaFinCadena: horaFinCadena,
+      observacion: observacion,
+      idCliente: { idPersona: idCliente },
+      idEmpleado: { idPersona: idEmpleado },
+    };
+    let options = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json',
+        usuario: 'usuario1',
+      }),
+    };
+    console.log("olaaa", datos)
+    return this.http.post<any>(this.urlBase + 'reserva', datos, options);
+  }
+ 
+ 
+
   editarReserva(idReserva:number, dato:object): Observable<Reserva> {
     return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
   }

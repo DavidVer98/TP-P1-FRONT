@@ -34,7 +34,8 @@ export class ReservaComponent implements OnInit {
     'horaFinCadena',
     'idEmpleado',
     'idCliente',
-    'acciones',
+    'observacion',
+    'acciones'
   ];
 
   filtros: Filtro = {};
@@ -74,6 +75,14 @@ export class ReservaComponent implements OnInit {
 
   buscar(): void{
     this.getReservas();
+  }
+
+  crearReserva(){
+    this.matdialog.open(ReservaModalComponent, {
+      data:{
+        tipo: "create"
+      }
+      })
   }
 
   editarReserva(idReserva: number) {

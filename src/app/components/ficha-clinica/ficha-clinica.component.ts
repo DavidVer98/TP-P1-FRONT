@@ -8,6 +8,7 @@ import { FichaClinicaModalComponent } from '../ficha-clinica-modal/ficha-clinica
 import { Persona } from 'src/app/models/user.models';
 import { BuscarfisioterapeutaComponent } from '../buscarfisioterapeuta/buscarfisioterapeuta.component';
 import { BuscarclienteComponent } from '../buscarcliente/buscarcliente.component';
+import * as moment from 'moment';
 
 
 
@@ -139,5 +140,13 @@ eliminarFichaClinica(idFichaClinica: number) {
     }
     } )
 }
+changeFechaInicio(evt:any){
+  this.filtros.fechaDesde = moment(evt.value).format('YYYYMMDD')
+}
+
+changeFechaFin(evt:any){
+  this.filtros.fechaHasta = moment(evt.value).format('YYYYMMDD')
+}
+
 
 }
