@@ -30,7 +30,6 @@ import { ReservaModalComponent } from './components/reserva-modal/reserva-modal.
 import { BuscarfisioterapeutaComponent } from './components/buscarfisioterapeuta/buscarfisioterapeuta.component';
 import {ReportesComponent} from './components/reportes/reportes.component';
 import {Servicio9Component} from './components/servicio9/servicio9.component';
-import {MatSortModule} from "@angular/material/sort";
 import {Servicio9ModalComponent} from './components/servicio9-modal/servicio9-modal.component';
 
 
@@ -61,13 +60,12 @@ import {Servicio9ModalComponent} from './components/servicio9-modal/servicio9-mo
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule,
     HttpClientModule,
     FormsModule,
     CommonModule,
     DashboardModule,
-    MatSortModule,
     ReactiveFormsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

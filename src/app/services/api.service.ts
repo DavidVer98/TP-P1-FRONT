@@ -254,6 +254,11 @@ export class ApiService {
     return this.http.get<Listadatos<Servicios>>(this.urlBase + 'servicio');
   }
 
+  getServiciosQueryParams(stringQuery:string){
+    let encodedUrl = `${this.urlBase}servicio?ejemplo=${encodeURIComponent(stringQuery)}`
+    return this.http.get<ListadoServicio9>(encodedUrl)
+  }
+
   //--------------Servicio9------------------------------------------------------------------------------------
   getAllServicios9(){
     return this.http.get<ListadoServicio9>(this.urlBase + 'servicio')
