@@ -28,7 +28,7 @@ export interface subcategoriaTipo {
   styleUrls: ['./sub-categoria.component.css']
 })
 export class SubCategoriaComponent implements OnInit {
-  
+
   subCategoria: SubCategoria[] = [];
 
   displayedColumns: string[] = [
@@ -43,7 +43,12 @@ export class SubCategoriaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource(this.subCategoria);
 
-  constructor(private apiService: ApiService, private matdialog: MatDialog) { }
+  query:QueryTipo2 = new QueryTipo2()
+  categorias!:Categoria[]
+
+  constructor(private apiService: ApiService, private matdialog: MatDialog) {
+    this.apiService.getAllCategoriaOrder().subscribe(value => this.categorias = value.lista)
+  }
 
   ngOnInit(): void {
     this.apiService.getAllSubCategoria().subscribe({
@@ -101,5 +106,31 @@ export class SubCategoriaComponent implements OnInit {
         descripcionSubCategoria: this.dataSource.filteredData.find(data => data.idTipoProducto == idSubCategoria)?.descripcion
       }
       } )
+  }
+
+  search() {
+    this.apiService.getSubCategoriaQueryParams(this.query.makeQuery()).subscribe(value => this.dataSource = new MatTableDataSource(value.lista))
+  }
+
+
+}
+
+
+export class QueryTipo2 {
+  constructor(public descripcion: string = '',
+              public idCategoria: number | null = null,) {
+  }
+
+  makeQuery() {
+    let obj: { [k: string]: any } = {};
+
+    if (this.descripcion) {
+      obj['descripcion'] = this.descripcion
+    }
+    if (this.idCategoria) {
+      obj['idCategoria'] = {"idCategoria": this.idCategoria}
+    }
+
+    return JSON.stringify(obj)
   }
 }

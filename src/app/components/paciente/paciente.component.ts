@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { PacienteModalComponent } from '../paciente-modal/paciente-modal.component';
+import {Servicio9} from "../../models/servicio9";
 
 export interface PeriodicElement {
   name: string;
@@ -35,9 +36,8 @@ export class PacienteComponent implements OnInit {
     'acciones'
   ];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource(this.paciente);
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private apiService: ApiService, private matdialog: MatDialog) { }
 
@@ -102,6 +102,25 @@ export class PacienteComponent implements OnInit {
         }
 
       }
+    })
+  }
+
+  setData(data: PersonaModel[]) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+  }
+
+  fisioterapeutas(){
+    this.apiService.getAllPacienteFisioterapeutas().subscribe(value => {
+      console.log(value)
+      this.setData(value.lista)
+    })
+  }
+
+  pacientes(){
+    this.apiService.getAllPaciente().subscribe(value => {
+      console.log(value)
+      this.setData(value.lista)
     })
   }
 

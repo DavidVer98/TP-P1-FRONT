@@ -39,8 +39,12 @@ export class ReportesComponent implements OnInit {
   //para excel
   exportList: any[] = [];
 
+  //lista
+  clientes:any
+  empleados:any
 
-  query: Query = new Query()
+
+  query: QueryTipo1 = new QueryTipo1()
 
   displayedColumns: string[] = ['Fecha', 'Fisioterapeuta', 'Paciente', 'Presupuesto', 'Subcategoría'];
   columns = [
@@ -75,7 +79,9 @@ export class ReportesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService)
+  {
+    this.apiService.getAllClientes().subscribe(value => this.clientes = value.lista)
   }
 
   ngOnInit(): void {
@@ -188,7 +194,7 @@ export class ReportesComponent implements OnInit {
 
 }
 
-class Query {
+export class QueryTipo1 {
   constructor(public fechaInicio: string = '',
               public fechaFin: string = '',
               public idEmpleado: number | null = null,

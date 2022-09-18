@@ -27,6 +27,12 @@ export class ApiService {
   getAllPaciente(): Observable<ListadatosG<PersonaModel>> {
     return this.http.get<Listadatos<PersonaModel>>(this.urlBase + 'persona');
   }
+
+  getAllPacienteFisioterapeutas(): Observable<ListadatosG<PersonaModel>> {
+    let url = `${this.urlBase}persona?ejemplo=${encodeURIComponent('{"soloUsuariosDelSistema":true}')}`
+    return this.http.get<Listadatos<PersonaModel>>(url);
+  }
+
   deleteOnceCategoria(id: number): any {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'categoria/' + id);
@@ -176,7 +182,18 @@ export class ApiService {
       descripcion: descripcion,
     });
   }
-  //ficha Clinica
+
+  getAllCategoriaOrder(): Observable<Listadatos<Categoria>> {
+    return this.http.get<Listadatos<Categoria>>(this.urlBase + 'categoria?orderBy=descripcion&orderDir=asc');
+  }
+
+  getSubCategoriaQueryParams(stringQuery:string){
+    let encodedUrl = `${this.urlBase}tipoProducto?like=S&ejemplo=${encodeURIComponent(stringQuery)}`
+    return this.http.get<ListadatosSub<SubCategoria>>(encodedUrl)
+  }
+
+
+  //------------------------------------------------------ Ficha Clinica----------------------------------------------------
   getAllfichaClinica(): Observable<Listadatos<FichaClinicaModel>> {
     return this.http.get<Listadatos<FichaClinicaModel>>(
       this.urlBase + 'fichaClinica'
@@ -269,6 +286,10 @@ export class ApiService {
   //-----------------Reporte---------------------------------------------------------------------------------
   getReporte(): Observable<Listadatos<Servicios>> {
     return this.http.get<Listadatos<Servicios>>(this.urlBase + 'servicio');
+  }
+
+  getAllClientes(){
+    return this.http.get<any>(this.urlBase + 'persona?orderBy=nombre&orderDir=asc')
   }
 
   getServiciosQueryParams(stringQuery:string){
