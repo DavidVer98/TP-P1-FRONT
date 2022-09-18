@@ -2,35 +2,55 @@
   <!-- <mat-toolbar>
       <span>Categoria</span>
       <button mat-raised-button color="primary" (click)="openPopup()">Primary</button>
-  
+
     </mat-toolbar> -->
   <h1>Reservas</h1>
 
-  
-    <div >
-        <label for="fisioterapeuta">Fisioterapeuta</label>
-        <div >
-            <input type="text" id="fisioterapeuta" name="fisioterapeuta" readonly
-                [(ngModel)]="fisioterapeuta.nombre">
-            <div >
-                <button  data-bs-toggle="modal" data-bs-target="#empleadoModal"
-                    type="button" (click)="buscarFisioterapeuta()">Buscar</button>
-            </div>
-        </div>
-    
-        <label for="cliente">Cliente</label>
-        <div >
-            <input type="text" id="cliente" readonly name="cliente"
-                [(ngModel)]="cliente.nombre">
-            <div >
-                <button  data-bs-toggle="modal" data-bs-target="#clienteModal"
-                    type="button" (click)="buscarCliente()">Buscar</button>
-            </div>
-        </div>
+  <label for="fisioterapeuta">Filtros</label>
+  <div >
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Fisioterapa</mat-label>
+        <input matInput placeholder="fisioterapeuta"  type="text" id="fisioterapeuta" name="fisioterapeuta" [(ngModel)]="fisioterapeuta.nombre" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cliente</mat-label>
+        <input matInput placeholder="Cliente"  type="text" id="fisioterapeuta" name="fisioterapeuta"  [(ngModel)]="cliente.nombre" required>
+      </mat-form-field>
     </div>
+      <div >
+        <button mat-raised-button color="primary" (click)="buscarFisioterapeuta()">Buscar</button>
+      </div>
+  </div>
+
+  <mat-form-field appearance="fill" class="example-form-field">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="datepicker1"  [(ngModel)]="filtros.fechaDesde">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker1>
+      <mat-datepicker-actions>
+        <button mat-button matDatepickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+      </mat-datepicker-actions>
+    </mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="example-form-field">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="datepicker2"[(ngModel)]="filtros.fechaHasta">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker2>
+      <mat-datepicker-actions>
+        <button mat-button matDatepickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+      </mat-datepicker-actions>
+    </mat-datepicker>
+  </mat-form-field>
 
 
-
+  <input [matDatepicker]="myDatepicker">
+  <mat-datepicker #myDatepicker></mat-datepicker>
   <div>
     <label for="fechaDesde">Desde</label>
     <input

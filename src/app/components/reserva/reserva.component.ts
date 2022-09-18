@@ -9,6 +9,8 @@ import { BuscarclienteComponent } from '../buscarcliente/buscarcliente.component
 import { BuscarfisioterapeutaComponent } from '../buscarfisioterapeuta/buscarfisioterapeuta.component';
 import { FichaClinicaModalComponent } from '../ficha-clinica-modal/ficha-clinica-modal.component';
 import { ReservaModalComponent } from '../reserva-modal/reserva-modal.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 type Filtro = {
   fechaDesde?: string;
@@ -67,7 +69,7 @@ export class ReservaComponent implements OnInit {
   });}
 
   buscar(): void{
-    this.getReservas();  
+    this.getReservas();
   }
 
   editarReserva(idReserva: number) {
@@ -100,7 +102,7 @@ export class ReservaComponent implements OnInit {
     });
     this.matdialog.open(FichaClinicaModalComponent, {
       data: {
-        tipo: 'test_reserva',
+        tipo: 'create',
       },
     });
   }
@@ -118,7 +120,7 @@ export class ReservaComponent implements OnInit {
       }
     })
   }
-  
+
 
   buscarCliente() {
     this.clienteDialogRef=this.matdialog.open(BuscarclienteComponent, {
@@ -131,7 +133,7 @@ export class ReservaComponent implements OnInit {
   }
 
 
- 
+
 
 
 
