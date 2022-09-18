@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { ApiService } from 'src/app/services/api.service';
-import { Servicios } from '../../models/servicios.models';
+import {MatTableDataSource} from '@angular/material/table';
+import {ApiService} from 'src/app/services/api.service';
+import {Servicios} from '../../models/servicios.models';
 import * as moment from "moment";
 import {query} from "@angular/animations";
 import {Servicio9} from "../../models/servicio9";
@@ -10,10 +10,13 @@ import {MatSort} from "@angular/material/sort";
 import {jsPDF} from 'jspdf';
 import 'jspdf-autotable';
 import {UserOptions} from 'jspdf-autotable';
+// @ts-ignore
+import * as FileSaver from 'file-saver';
 
 interface jsPDFWithPlugin extends jsPDF {
   autoTable: (options: UserOptions) => jsPDF;
 }
+
 interface DatosPDF {
   fecha: string
   fisioterapeuta: string
@@ -31,12 +34,15 @@ export class ReportesComponent implements OnInit {
 
   // para pdf
   doc = new jsPDF() as jsPDFWithPlugin;
-  datosPDF:DatosPDF[] = []
+  datosPDF: DatosPDF[] = []
+
+  //para excel
+  exportList: any[] = [];
 
 
-  query:Query = new Query()
+  query: Query = new Query()
 
-  displayedColumns: string[] = ['Fecha', 'Fisioterapeuta', 'Paciente','Presupuesto', 'Subcategoría'];
+  displayedColumns: string[] = ['Fecha', 'Fisioterapeuta', 'Paciente', 'Presupuesto', 'Subcategoría'];
   columns = [
     {
       columnDef: 'Fecha',
@@ -69,31 +75,32 @@ export class ReportesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService) {
+  }
 
   ngOnInit(): void {
   }
 
-  setData(data:Servicio9[]) {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+  setData(data: Servicio9[]) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  search(){
+  search() {
     this.apiService.getServiciosQueryParams(this.query.makeQuery()).subscribe(value => this.setData(value.lista))
   }
 
-  changeFechaInicio(evt:any){
+  changeFechaInicio(evt: any) {
     this.query.fechaInicio = moment(evt.value).format('YYYYMMDD')
   }
 
-  changeFechaFin(evt:any){
+  changeFechaFin(evt: any) {
     this.query.fechaFin = moment(evt.value).format('YYYYMMDD')
   }
 
 
-  generarPDF(){
+  generarPDF() {
     this.procesarDatosPDF()
     console.log(this.datosPDF)
     this.dibujarPDF()
@@ -149,28 +156,58 @@ export class ReportesComponent implements OnInit {
       body: this.datosPDF as any
     }
   }
+
+  exportExcel() {
+
+    let cabecera = [
+      {'titulo': 'Fecha Inicio', 'dato': this.query.fechaInicio},
+      {'titulo': 'Fecha Fin', 'dato': this.query.fechaFin},
+      {'titulo': 'idEmpleado', 'dato': this.query.idEmpleado},
+      {'titulo': 'idCliente', 'dato': this.query.idCliente}
+    ]
+
+    this.procesarDatosPDF()
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.datosPDF);
+      xlsx.utils.sheet_add_json(worksheet, cabecera, {origin: "G1"});
+      const workbook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
+      const excelBuffer: any = xlsx.write(workbook, {bookType: 'xlsx', type: 'array'});
+      this.saveAsExcelFile(excelBuffer, "reporte");
+    });
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    let EXCEL_EXTENSION = '.xlsx';
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(data, fileName + '_' + new Date().getTime() + EXCEL_EXTENSION);
+  }
+
+
 }
 
 class Query {
-  constructor(public fechaInicio:string = '',
-              public fechaFin:string = '',
-              public idEmpleado:number|null = null,
-              public idCliente:number|null = null)
-  {}
+  constructor(public fechaInicio: string = '',
+              public fechaFin: string = '',
+              public idEmpleado: number | null = null,
+              public idCliente: number | null = null) {
+  }
 
-  makeQuery(){
-    let obj: {[k: string]: any} = {};
+  makeQuery() {
+    let obj: { [k: string]: any } = {};
     obj['fechaDesdeCadena'] = this.fechaInicio
     obj['fechaHastaCadena'] = this.fechaFin
-    if(this.idEmpleado){
+    if (this.idEmpleado) {
       obj['idEmpleado'] = this.idEmpleado
     }
-    if(this.idCliente){
-      obj['idFichaClinica'] = {"idCliente":{"idPersona":this.idCliente}}
+    if (this.idCliente) {
+      obj['idFichaClinica'] = {"idCliente": {"idPersona": this.idCliente}}
 
     }
-    if(this.idEmpleado){
-      obj['idEmpleado'] = {"idPersona":this.idEmpleado}
+    if (this.idEmpleado) {
+      obj['idEmpleado'] = {"idPersona": this.idEmpleado}
 
     }
     return JSON.stringify(obj)
