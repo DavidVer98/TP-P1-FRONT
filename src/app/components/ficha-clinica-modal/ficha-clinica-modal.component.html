@@ -13,7 +13,7 @@
         <li>
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Diagnostico</mat-label>
-            <input [(ngModel)]="fichaclinica.diagnostico" name="diagnostico" matInput maxlength="256" 
+            <input [(ngModel)]="fichaclinica.diagnostico" name="diagnostico" matInput maxlength="256"
               placeholder="Escriba el diagnostico" />
           </mat-form-field>
         </li>
@@ -34,7 +34,7 @@
         </li>
         <li>
           <mat-form-field appearance="fill">
-            <mat-label>Seleccione un Fisioterapeuta</mat-label>
+            <mat-label>Seleccione un HorarioExcepcion</mat-label>
             <mat-select disableRipple (selectionChange)="onChange2($event.value)">
               <mat-option *ngFor="let test of personaFisioterapeuta"  [value]="test.idPersona">{{test.nombre}}</mat-option>
             </mat-select>
@@ -70,7 +70,7 @@
       <li>
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Diagnostico</mat-label>
-          <input [(ngModel)]="fichaclinica.diagnostico" name="diagnostico" matInput maxlength="256" 
+          <input [(ngModel)]="fichaclinica.diagnostico" name="diagnostico" matInput maxlength="256"
             placeholder="Farmacos" [disabled]="true"/>
         </mat-form-field>
       </li>

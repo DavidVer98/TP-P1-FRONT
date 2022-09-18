@@ -37,6 +37,8 @@ import {ReportesComponent} from './components/reportes/reportes.component';
 import {Servicio9Component} from './components/servicio9/servicio9.component';
 import {Servicio9ModalComponent} from './components/servicio9-modal/servicio9-modal.component';
 import { BuscarclienteComponent } from './components/buscarcliente/buscarcliente.component';
+import { FisioterapeutaComponent } from './components/fisioterapeuta/fisioterapeuta.component';
+import { HorarioExcepcionModalComponent } from './components/horario-excepcion-modal/horario-excepcion-modal.component';
 
 
 
@@ -63,7 +65,7 @@ import { BuscarclienteComponent } from './components/buscarcliente/buscarcliente
     BuscarfisioterapeutaComponent,
     BuscarclienteComponent,
     ServiciosAdminComponent, 
-    ServiciosModalComponent
+    ServiciosModalComponent, FisioterapeutaComponent, HorarioExcepcionModalComponent
   ],
 
   imports: [
