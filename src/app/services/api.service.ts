@@ -108,10 +108,21 @@ export class ApiService {
     return this.http.put<any>(this.urlBase + 'persona', update);
   }
 
-  getEmpleados(filtros: any): Observable<Listadatos<Persona>> {
+  getFisioterapeuta(filtros: any): Observable<Listadatos<Persona>> {
     let params = new HttpParams().set(
       'ejemplo',
-      `{"nombre": "${filtros.nombre}", "apellido": "${filtros.apellido}","soloUsuariosDelSistema": true}`
+      `{"nombre": "${filtros.nombre}", "apellido": "${filtros.apellido}"}`
+    );
+
+    return this.http.get<Listadatos<Persona>>(this.urlBase + 'persona', {
+      params: params,
+    });
+  }
+
+  getCliente(filtros: any): Observable<Listadatos<Persona>> {
+    let params = new HttpParams().set(
+      'ejemplo',
+      `{"nombre": "${filtros.nombre}", "apellido": "${filtros.apellido}"}`
     );
 
     return this.http.get<Listadatos<Persona>>(this.urlBase + 'persona', {
@@ -235,6 +246,12 @@ export class ApiService {
     }
     if (filtros.fechaHasta) {
       dato['fechaHastaCadena'] = filtros.fechaHasta.split('-').join('');
+    }
+    if (filtros.idCliente) {
+      dato["idCliente"] = { "idPersona": filtros.idCliente }
+    }
+    if (filtros.idEmpleado) {
+      dato['idEmpleado'] = { "idPersona": filtros.idEmpleado}
     }
     let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
 

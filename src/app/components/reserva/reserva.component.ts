@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, Optional, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Reserva } from 'src/app/models/reserva.models';
 import { Persona } from 'src/app/models/user.models';
 import { ApiService } from '../../services/api.service';
+import { BuscarclienteComponent } from '../buscarcliente/buscarcliente.component';
+import { BuscarfisioterapeutaComponent } from '../buscarfisioterapeuta/buscarfisioterapeuta.component';
 import { FichaClinicaModalComponent } from '../ficha-clinica-modal/ficha-clinica-modal.component';
 import { ReservaModalComponent } from '../reserva-modal/reserva-modal.component';
 
@@ -14,8 +16,7 @@ type Filtro = {
   idEmpleado?: number;
   idCliente?: number;
 };
-let empleado = new Persona();
-let cliente = new Persona();
+;
 @Component({
   selector: 'app-reserva',
   templateUrl: './reserva.component.html',
@@ -34,11 +35,11 @@ export class ReservaComponent implements OnInit {
   ];
 
   filtros: Filtro = {};
-  empleado: Persona = new Persona();
+  fisioterapeuta: Persona = new Persona();
   cliente: Persona = new Persona();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource(this.reserva);
-  constructor(private apiService: ApiService, private matdialog: MatDialog) {
+  constructor(private apiService: ApiService, private matdialog: MatDialog, @Optional() public matDialogRef: MatDialogRef<ReservaModalComponent>) {
     const today = new Date();
     const todayString = `${today.getFullYear()}${
       today.getMonth() < 9 ? '0' : ''
@@ -47,12 +48,13 @@ export class ReservaComponent implements OnInit {
     }${today.getDate()}`;
     this.filtros.fechaDesde = todayString;
     this.filtros.fechaHasta = todayString;
-    console.log(this.filtros.fechaDesde);
-    console.log(this.filtros.fechaHasta);
-  }
 
+  }
+  fisioterapeutaDialogRef!: MatDialogRef<BuscarfisioterapeutaComponent>;
+  clienteDialogRef!: MatDialogRef<BuscarclienteComponent>;
   ngOnInit(): void {
     this.getReservas()
+    this.filtros={}
   }
 
   getReservas( ) {
@@ -103,9 +105,37 @@ export class ReservaComponent implements OnInit {
     });
   }
 
-  seleccionarEmpleado(empleado: Persona){
-    this.empleado = empleado
-    
+
+  buscarFisioterapeuta() {
+    this.fisioterapeutaDialogRef=this.matdialog.open(BuscarfisioterapeutaComponent, {
+    });
+
+    this.fisioterapeutaDialogRef.afterClosed().subscribe(result => {
+
+      if(result){
+        this.filtros.idEmpleado = result.idPersona
+        this.fisioterapeuta=result
+      }
+    })
   }
+  
+
+  buscarCliente() {
+    this.clienteDialogRef=this.matdialog.open(BuscarclienteComponent, {
+    });
+
+    this.clienteDialogRef.afterClosed().subscribe(result => {
+      this.filtros.idCliente = result.idPersona
+      if(result) this.cliente=result
+    })
+  }
+
+
+ 
+
+
+
+
+
 
 }
