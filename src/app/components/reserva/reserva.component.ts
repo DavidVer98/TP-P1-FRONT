@@ -129,13 +129,4 @@ export class ReservaComponent implements OnInit {
       if(result) this.cliente=result
     })
   }
-
-
- 
-
-
-
-
-
-
 }
