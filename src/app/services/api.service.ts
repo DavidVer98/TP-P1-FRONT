@@ -207,6 +207,29 @@ export class ApiService {
       this.urlBase + 'fichaClinica'
     );
   }
+  getFilteredfichaClinica(filtros:any): Observable<Listadatos<FichaClinicaModel>> {
+    let dato: any = {};
+    if (filtros.fechaDesde) {
+      dato['fechaDesdeCadena'] = filtros.fechaDesde.split('-').join('');
+    }
+    if (filtros.fechaHasta) {
+      dato['fechaHastaCadena'] = filtros.fechaHasta.split('-').join('');
+    }
+    if (filtros.idCliente) {
+      dato["idCliente"] = { "idPersona": filtros.idCliente }
+    }
+    if (filtros.idEmpleado) {
+      dato['idEmpleado'] = { "idPersona": filtros.idEmpleado}
+    }
+    let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
+
+
+    return this.http.get<Listadatos<FichaClinicaModel>>(
+      this.urlBase + 'fichaClinica',{params,}
+    );
+  }
+
+
   deleteOncefichaClinica(id: number): any {
     console.log('id desde el servicio' + id);
     return this.http.delete(this.urlBase + 'fichaClinica/' + id);
@@ -285,7 +308,25 @@ export class ApiService {
     });
   }
 
-
+  crearReserva(idCliente:number, idEmpleado:number, fechaCadena:string, horaInicioCadena:string, horaFinCadena:string, observacion:string): Observable<Reserva> {
+    let datos = {
+      fechaCadena: fechaCadena,
+      horaInicioCadena: horaInicioCadena,
+      horaFinCadena: horaFinCadena,
+      observacion: observacion,
+      idCliente: { idPersona: idCliente },
+      idEmpleado: { idPersona: idEmpleado },
+    };
+    let options = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json',
+        usuario: 'usuario1',
+      }),
+    };
+    console.log("olaaa", datos)
+    return this.http.post<any>(this.urlBase + 'reserva', datos, options);
+  }
 
   //-------------------------------------------------------Admin de Servicios ---------------------------------
   getAllServiciosA(): Observable<ListadatosS<ServiciosAdmin>> {
@@ -311,8 +352,6 @@ export class ApiService {
     console.log("mama felic ucmple",idProducto);
     return this.http.put<any>(this.urlBase + 'presentacionProducto',  idPresentacionProducto);
   }
-
-
 
 
   editarReserva(idReserva:number, dato:object): Observable<Reserva> {
@@ -357,6 +396,15 @@ export class ApiService {
     return this.http.delete(url);
   }
 
+  getFilteredServicio9(idFichaClinica:number) {
+    let dato: any = {};
+    dato['idFichaClinica'] = { "idFichaClinica": idFichaClinica}
+    let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
+
+    return this.http.get<ListadoServicio9>(this.urlBase + 'servicio',{params});
+    //  stock-nutrinatalia /servicio?ejemplo={"idEmpleado":{"idPersona":3}}
+
+  }
   //----------------------------------------horarioExcepcion----------------------------------------------------------
   getAllHorarioExcepcion(){
     return this.http.get<Listadatos<HorarioExcepcion>>(this.urlBase + 'horarioExcepcion')
@@ -373,5 +421,6 @@ export class ApiService {
     }
     return this.http.post<any>(this.urlBase + 'horarioExcepcion/', data, options);
   }
-
 }
+
+
