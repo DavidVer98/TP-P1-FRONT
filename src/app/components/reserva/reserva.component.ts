@@ -100,7 +100,7 @@ export class ReservaComponent implements OnInit {
     });
     this.matdialog.open(FichaClinicaModalComponent, {
       data: {
-        tipo: 'test_reserva',
+        tipo: 'create',
       },
     });
   }
