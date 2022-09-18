@@ -111,7 +111,7 @@ export class ApiService {
   getFisioterapeuta(filtros: any): Observable<Listadatos<Persona>> {
     let params = new HttpParams().set(
       'ejemplo',
-      `{"nombre": "${filtros.nombre}", "apellido": "${filtros.apellido}"}`
+      `{"nombre": "${filtros.nombre}", "apellido": "${filtros.apellido}","soloUsuariosDelSistema": true}`
     );
 
     return this.http.get<Listadatos<Persona>>(this.urlBase + 'persona', {
