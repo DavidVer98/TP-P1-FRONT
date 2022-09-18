@@ -44,8 +44,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatNativeDateModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatSortModule
   ],
 })

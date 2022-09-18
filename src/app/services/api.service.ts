@@ -12,8 +12,15 @@ import { SubCategoria } from '../models/subCategoria.models';
 import { HttpHeaders } from '@angular/common/http';
 import { Persona } from '../models/user.models';
 import { Reserva } from '../models/reserva.models';
+
+import { ListadatosS } from '../models/datosServicios.models';
+import { ServiciosAdmin } from '../models/serviciosAdmin.models';
+import { ProductoAdminSistema } from '../models/productoAdminSistemas.models';
+
+
 import { Servicios } from '../models/servicios.models';
 import {ListadoServicio9} from "../models/servicio9";
+
 
 @Injectable({
   providedIn: 'root',
@@ -276,6 +283,37 @@ export class ApiService {
       params,
     });
   }
+
+
+
+  //-------------------------------------------------------Admin de Servicios ---------------------------------
+  getAllServiciosA(): Observable<ListadatosS<ServiciosAdmin>> {
+    return this.http.get<Listadatos<ServiciosAdmin>>(this.urlBase + 'presentacionProducto');
+  }
+  
+  createServicioAdmin(codigo:number,nombre:string, descripcion:string, idProducto:ProductoAdminSistema, precioventa:number) {
+    console.log('qlq pasa aca nderakore',{codigo, nombre, idProducto, precioventa , descripcion});
+    return this.http.post<any>(this.urlBase + 'presentacionProducto/', {"codigo":codigo, "flagServicio":"S",idProducto, "nombre":nombre, "descripcion":descripcion, "existenciaProducto":{"precioVenta":precioventa} });
+  }
+
+  deleteOnceServicioAdmin(id: number): any {
+    console.log('id desde el servicio' + id);
+    return this.http.delete(this.urlBase + 'presentacionProducto/' + id);
+  }
+
+  editarServicioAdmin(idPresentacionProducto: ServiciosAdmin, nombre:string, descripcion: string, idProducto: ProductoAdminSistema) {
+    console.log('alguien en casa?',typeof(idPresentacionProducto));
+    idPresentacionProducto.nombre=nombre;
+    idPresentacionProducto.descripcion=descripcion;
+    idPresentacionProducto.idProducto=idProducto;
+    console.log("Editar ", idPresentacionProducto);
+    console.log("mama felic ucmple",idProducto);
+    return this.http.put<any>(this.urlBase + 'presentacionProducto',  idPresentacionProducto);
+  }
+
+
+
+
   editarReserva(idReserva:number, dato:object): Observable<Reserva> {
     return this.http.put<Reserva>(this.urlBase + 'reserva', dato);
   }
@@ -317,5 +355,6 @@ export class ApiService {
     let url = `${this.urlBase}servicio/${servicio}/detalle/${detalle}`
     return this.http.delete(url);
   }
+
 
 }
