@@ -31,6 +31,7 @@ import { BuscarfisioterapeutaComponent } from './components/buscarfisioterapeuta
 import {ReportesComponent} from './components/reportes/reportes.component';
 import {Servicio9Component} from './components/servicio9/servicio9.component';
 import {Servicio9ModalComponent} from './components/servicio9-modal/servicio9-modal.component';
+import { BuscarclienteComponent } from './components/buscarcliente/buscarcliente.component';
 
 
 
@@ -54,7 +55,8 @@ import {Servicio9ModalComponent} from './components/servicio9-modal/servicio9-mo
     ReportesComponent,
     Servicio9Component,
     Servicio9ModalComponent,
-    BuscarfisioterapeutaComponent
+    BuscarfisioterapeutaComponent,
+    BuscarclienteComponent
   ],
   imports: [
     BrowserModule,
