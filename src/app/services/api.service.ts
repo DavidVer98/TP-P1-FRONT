@@ -20,6 +20,7 @@ import { ProductoAdminSistema } from '../models/productoAdminSistemas.models';
 
 import { Servicios } from '../models/servicios.models';
 import {ListadoServicio9} from "../models/servicio9";
+import {HorarioExcepcion} from "../models/horarioExcepcion";
 
 
 @Injectable({
@@ -334,7 +335,7 @@ export class ApiService {
   getAllServiciosA(): Observable<ListadatosS<ServiciosAdmin>> {
     return this.http.get<Listadatos<ServiciosAdmin>>(this.urlBase + 'presentacionProducto');
   }
-  
+
   createServicioAdmin(codigo:number,nombre:string, descripcion:string, idProducto:ProductoAdminSistema, precioventa:number) {
     console.log('qlq pasa aca nderakore',{codigo, nombre, idProducto, precioventa , descripcion});
     return this.http.post<any>(this.urlBase + 'presentacionProducto/', {"codigo":codigo, "flagServicio":"S",idProducto, "nombre":nombre, "descripcion":descripcion, "existenciaProducto":{"precioVenta":precioventa} });
@@ -398,7 +399,7 @@ export class ApiService {
     return this.http.delete(url);
   }
 
-  getFilteredServicio9(idFichaClinica:number) { 
+  getFilteredServicio9(idFichaClinica:number) {
     let dato: any = {};
     dato['idFichaClinica'] = { "idFichaClinica": idFichaClinica}
     let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
@@ -407,6 +408,7 @@ export class ApiService {
     //  stock-nutrinatalia /servicio?ejemplo={"idEmpleado":{"idPersona":3}}
 
   }
+
   getCategorias():Observable<Listadatos<Categoria>>{
     return this.http.get<Listadatos<Categoria>>(this.urlBase+"categoria");
   } 
@@ -415,6 +417,24 @@ export class ApiService {
     let params = new HttpParams()
     .set('ejemplo', `{"idCategoria":{"idCategoria": ${idCategoria}}}`)
     return this.http.get<Listadatos<SubCategoria>>(this.urlBase+"tipoProducto",{params:params});
+  }
+
+  //----------------------------------------horarioExcepcion----------------------------------------------------------
+  getAllHorarioExcepcion(){
+    return this.http.get<Listadatos<HorarioExcepcion>>(this.urlBase + 'horarioExcepcion')
+  }
+
+  getHorarioExcepcionQueryParams(stringQuery:string){
+    let encodedUrl = `${this.urlBase}horarioExcepcion?ejemplo=${encodeURIComponent(stringQuery)}`
+    return this.http.get<Listadatos<HorarioExcepcion>>(encodedUrl)
+  }
+
+  createHorarioExcepcion(data:any){
+    let options = {
+      headers: new HttpHeaders({ "Access-Control-Allow-Headers": 'Content-Type', 'Content-Type': 'application/json' })
+    }
+    return this.http.post<any>(this.urlBase + 'horarioExcepcion/', data, options);
+
   }
 }
 
