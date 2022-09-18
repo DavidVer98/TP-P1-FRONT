@@ -220,12 +220,15 @@ export class ApiService {
     if (filtros.idEmpleado) {
       dato['idEmpleado'] = { "idPersona": filtros.idEmpleado}
     }
+    if (filtros.idTipoProducto){
+      dato['idTipoProducto'] = {"idTipoProducto": filtros.idTipoProducto}
+    }
     let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
+    
 
-
-    return this.http.get<Listadatos<FichaClinicaModel>>(
-      this.urlBase + 'fichaClinica',{params,}
-    );
+    let encodedUrl = `${this.urlBase}fichaClinica?ejemplo=${encodeURIComponent(JSON.stringify(dato))}`
+    console.log("eskere", encodedUrl, dato)
+    return this.http.get<Listadatos<FichaClinicaModel>>(encodedUrl);
   }
 
 
@@ -301,7 +304,7 @@ export class ApiService {
       dato['idEmpleado'] = { "idPersona": filtros.idEmpleado}
     }
     let params = new HttpParams().set('ejemplo', JSON.stringify(dato));
-
+   
     return this.http.get<Listadatos<Reserva>>(this.urlBase + 'reserva', {
       params,
     });
@@ -403,6 +406,15 @@ export class ApiService {
     return this.http.get<ListadoServicio9>(this.urlBase + 'servicio',{params});
     //  stock-nutrinatalia /servicio?ejemplo={"idEmpleado":{"idPersona":3}}
 
+  }
+  getCategorias():Observable<Listadatos<Categoria>>{
+    return this.http.get<Listadatos<Categoria>>(this.urlBase+"categoria");
+  } 
+
+  getTipoProductos(idCategoria: number){
+    let params = new HttpParams()
+    .set('ejemplo', `{"idCategoria":{"idCategoria": ${idCategoria}}}`)
+    return this.http.get<Listadatos<SubCategoria>>(this.urlBase+"tipoProducto",{params:params});
   }
 }
 

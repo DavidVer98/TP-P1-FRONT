@@ -9,6 +9,8 @@ import { Persona } from 'src/app/models/user.models';
 import { BuscarfisioterapeutaComponent } from '../buscarfisioterapeuta/buscarfisioterapeuta.component';
 import { BuscarclienteComponent } from '../buscarcliente/buscarcliente.component';
 import * as moment from 'moment';
+import { Categoria } from 'src/app/models/categoria.models';
+import { SubCategoria } from 'src/app/models/subCategoria.models';
 
 
 
@@ -29,7 +31,8 @@ type Filtro = {
 })
 export class FichaClinicaComponent implements OnInit {
   fichaclinica: FichaClinicaModel[] = [];
-
+  categorias: Categoria [] = []
+  tipoProductos: SubCategoria[] = []
   displayedColumns: string[] = [
     'idFichaClinica',
     'fechaHora',
@@ -41,6 +44,8 @@ export class FichaClinicaComponent implements OnInit {
     'idCliente',
     'acciones'
   ];
+  categoria: Categoria = new Categoria()
+  tipoProducto: SubCategoria = new SubCategoria()
   filtros: Filtro = {};
   fisioterapeuta: Persona = new Persona();
   cliente: Persona = new Persona();
@@ -54,6 +59,7 @@ export class FichaClinicaComponent implements OnInit {
 
   ngOnInit(): void {
    this.getFichas();
+   this.getCategorias()
    this.filtros={}
  }
 
@@ -68,6 +74,9 @@ export class FichaClinicaComponent implements OnInit {
   } 
 
   buscar(): void{
+    this.filtros.idTipoProducto = this.tipoProducto.idTipoProducto
+    this.filtros.idCliente = this.cliente.idPersona
+    this.filtros.idEmpleado = this.fisioterapeuta.idPersona
     this.getFichas();  
   }
 
@@ -147,6 +156,17 @@ changeFechaInicio(evt:any){
 changeFechaFin(evt:any){
   this.filtros.fechaHasta = moment(evt.value).format('YYYYMMDD')
 }
+getCategorias(){
+  this.apiService.getCategorias().subscribe((data:any)=>{
+    this.categorias = data.lista;
+  })
+}
 
+getTipoProductos(){
+  this.apiService.getTipoProductos(this.categoria.idCategoria).subscribe((data:any)=>{
+    this.tipoProductos = data.lista
+
+  })
+}
 
 }

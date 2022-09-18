@@ -91,7 +91,25 @@
             Buscar Cliente
           </button>
         </div>
-  
+        
+        <div >
+          <label for="categoria">Categoria</label>
+          <select class="form-select" id="categoria" name="categoria" [(ngModel)]="categoria" (ngModelChange)="getTipoProductos()"> 
+              <option *ngFor="let categoria of categorias" [ngValue]="categoria">{{categoria.descripcion}}</option>
+              
+          </select>
+      </div>
+      <div >
+          <label for="subcategoria">Tipo Producto</label>
+          <select name="subcategoria" class="form-select" id="subcategoria" [(ngModel)]="tipoProducto"> 
+              <option *ngFor="let tipoProducto of tipoProductos" [ngValue]="tipoProducto">{{tipoProducto.descripcion}}</option>
+          </select>
+      </div>
+
+
+
+
+        
         <div class="col-2"  style="margin-left: 27em;">
             <button mat-raised-button color="primary" (click)="buscar()">
               Buscar
