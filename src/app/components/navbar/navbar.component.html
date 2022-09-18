@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" style="position: sticky;">
   <mat-toolbar-row>
     <button
       mat-icon-button
@@ -27,9 +27,15 @@
 <mat-sidenav-container>
   <mat-sidenav mat-button [(opened)]="opened" mode="side">
     <mat-nav-list style="margin-top: 5px">
+
       <mat-list-item mat-button routerLink="/serviciosAdmin">
         <mat-icon style="color: #898989">medical_services</mat-icon>
         <span mat-button class="button-text">Admin. de Servicios</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item mat-button routerLink="/servicios">
+        <mat-icon style="color: #898989">medical_services</mat-icon>
+        <span mat-button class="button-text">Servicios</span>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-nav-list>
@@ -42,7 +48,7 @@
     </mat-nav-list>
     <mat-nav-list style="margin-top: 5px">
       <mat-list-item mat-button routerLink="/subCategoria">
-        <mat-icon style="color: #898989">chrome_reader_mode</mat-icon>
+        <mat-icon style="color: #898989">collections_bookmark</mat-icon>
         <span mat-button class="button-text">Sub-Categoria</span>
         <mat-divider></mat-divider>
       </mat-list-item>
@@ -63,8 +69,15 @@
     </mat-nav-list>
     <mat-nav-list style="margin-top: 5px">
       <mat-list-item mat-button routerLink="/paciente">
-        <mat-icon style="color: #898989">Admin_paciente</mat-icon>
+        <mat-icon style="color: #898989">manage_accounts</mat-icon>
         <span mat-button class="button-text">Administración de Paciente</span>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list style="margin-top: 5px">
+      <mat-list-item mat-button routerLink="/reportes">
+        <mat-icon style="color: #898989">file_open        </mat-icon>
+        <span mat-button class="button-text">Reportes</span>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-nav-list>
