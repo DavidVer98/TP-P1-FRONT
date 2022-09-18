@@ -272,6 +272,7 @@ export class ApiService {
   //-------------------------------------------------------Admin de Servicios ---------------------------------
   getAllServiciosA(): Observable<ListadatosS<ServiciosAdmin>> {
     return this.http.get<Listadatos<ServiciosAdmin>>(this.urlBase + 'presentacionProducto');
+    
   }
   
   createServicioAdmin(codigo:number,nombre:string, descripcion:string, idProducto:ProductoAdminSistema, precioventa:number) {

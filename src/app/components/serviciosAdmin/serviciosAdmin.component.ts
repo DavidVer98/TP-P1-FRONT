@@ -15,7 +15,11 @@ export interface PeriodicElement {
   symbol: string;
 }
 
+type Filtro = {
 
+  nombre?: string;
+  subcategoria?: string;
+};
 
 @Component({
   selector: 'app-serviciosAdmin',
@@ -24,7 +28,7 @@ export interface PeriodicElement {
 })
 export class ServiciosAdminComponent implements OnInit {
   servicios: ServiciosAdmin[] = [];
-
+  filtros :Filtro ={};
   displayedColumns: string[] = [
     'IdPresentacionProducto',
     'Nombre',
@@ -35,20 +39,48 @@ export class ServiciosAdminComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource(this.servicios);
-  
+
   constructor(private apiService: ApiService, private matdialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.getAll2();
+  }
+  
+  buscar(){
+    let algo:any = {};
+    
+    if (this.filtros){
+      this.dataSource.data = this.servicios.filter(xd => { 
+        algo=xd;
+        if (this.filtros.nombre && this.filtros.subcategoria ){
+          
+          return (algo.nombre.toLowerCase().includes(this.filtros.nombre.toLowerCase())  && algo.idProducto.idTipoProducto.descripcion.toLowerCase().includes(this.filtros.subcategoria.toLowerCase()) );
+        }else if (this.filtros.nombre){
+          return (algo.nombre.toLowerCase().includes(this.filtros.nombre)  );
+        }else {
+          console.log(algo.idProducto.idTipoProducto.descripcion,'olaaaa');
+          //@ts-ignore
+          return ( algo.idProducto.idTipoProducto.descripcion.toLowerCase().includes(this.filtros.subcategoria.toLowerCase()));
+        }
+       } )
+    }else{
+      
+      this.getAll2();
+    }
+    
+  }
+  
+  getAll2(){
+    console.log('linpi');
     this.apiService.getAllServiciosA().subscribe({
       next: (data) => {
         //console.log('response received', data);
         this.servicios = data.lista;
         this.dataSource.data = data.lista;
-        
+
       },
     });
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     //console.log(this.dataSource.data);
@@ -61,7 +93,7 @@ export class ServiciosAdminComponent implements OnInit {
   }
 
   eliminarServicioAdmin(idPresentacionProducto:ServiciosAdmin) {
-    
+
     this.matdialog.open(ServiciosModalComponent, {
       data:{
         tipo: "delete",
@@ -71,8 +103,8 @@ export class ServiciosAdminComponent implements OnInit {
   }
   // abre el poppup
   editarServiciosAdmin(test:ServiciosAdmin, nombre:string, descripcion:string, idproductoMod:ProductoAdminSistema){
-    
-    
+
+
     this.matdialog.open(ServiciosModalComponent, {
       data:{
         tipo: "edit",
@@ -82,7 +114,7 @@ export class ServiciosAdminComponent implements OnInit {
         proMod:idproductoMod
       }
       } )
-      
+
   }
   crearServicioAdmin(){
     this.matdialog.open(ServiciosModalComponent, {
